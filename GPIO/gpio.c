@@ -1,4 +1,11 @@
-
+/* Initial TEST of GPIO Pin out for Kernel
+ * This is based on the baremetal tutorials 
+ * on www.valvers.com
+ *
+ * Will just load everything into Kernel space and run
+ * 
+ * 
+ */
 #define GPIO_BASE       0x3F200000UL
 
 
