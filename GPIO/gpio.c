@@ -1,10 +1,10 @@
 /* Initial TEST of GPIO Pin out for Kernel
- * This is based on the baremetal tutorials 
+ * This is based on the baremetal tutorials
  * on www.valvers.com
  *
  * Will just load everything into Kernel space and run
- * 
- * 
+ *
+ *
  */
 #define GPIO_BASE       0x3F200000UL
 
@@ -60,7 +60,11 @@
 #define GPIO_GPPUDCLK0  38
 #define GPIO_GPPUDCLK1  39
 
-
+struct gpio_pin{
+volatile unsigned int p_nmb; /*The GPIO Pin number*/
+volatile unsigned int fnc_slt; /*Its associated function select*/
+unsigned int mtex;             /*mutex lock*/
+};
 
 
 /** GPIO Register set */
@@ -69,10 +73,16 @@ volatile unsigned int* gpio;
 /** Simple loop variable */
 volatile unsigned int tim;
 
-/** Main function - we'll never return from here */
-int main(void) __attribute__((naked));
-int main(void)
+
+/*Use kernel main from c runtime*/
+void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
 {
+
+    struct gpio_pin pin_set[52]; /*Holds the set of GPIO Pins*/
+
+
+    /*Initialize the gpio pins based on location and
+
     /* Assign the address of the GPIO peripheral (Using ARM Physical Address) */
     gpio = (unsigned int*)GPIO_BASE;
 
