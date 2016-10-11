@@ -1,3 +1,15 @@
+#include<stdint.h>
+/*Modified from valvers.com tutorials
+*
+* Location offsets for the Broadcom BCM2836
+* ARM peripheral.
+*
+*This is an initial test
+* to get the infrastructure set up and ensure
+* the Kernel is still working on each interation.
+*/
+
+
 #ifndef GPIO_H_INCLUDED
 #define GPIO_H_INCLUDED
 
@@ -55,11 +67,48 @@
 #define GPIO_GPPUDCLK0  38
 #define GPIO_GPPUDCLK1  39
 
+
+
+
+/*Enumeration type for the function GPIO function select mask
+*000 = GPIO Pin is an input
+ 001 = GPIO Pin is an output
+ 100 = GPIO Pin alternative funct 0
+ 101 = GPIO pin alternative funct 1
+ 110 = GPIO pin alternative funct 2
+ 111 = GPIO pin alterative  funct 3
+ 011 = GPIO pin alternative funct 4
+ 010 = GPIO pin alternative funct 5
+ */
+enum fslct_msk{
+gpio_in,
+gpio_out,
+gpio_ffive,
+gpio_four,
+gpio_fzero,
+gpio_fone,
+gpio_ftwo,
+gpio_fthree
+};
+
+
+/*Structure will hold the GPIO Pin data
+  such that each pin object can be initialized
+  in a 52 element array. Each pin will be able to be locked
+  and set up for each type of usage as specified in the
+  Broadcom BCM2836 Arm Peripherals*/
+
 struct gpio_pin{
 volatile unsigned int p_nmb; /*The GPIO Pin number*/
 volatile unsigned int fnc_slt; /*Its associated function select*/
-unsigned int mtex;             /*mutex lock*/
+volatile unsigned int funct_mask;        /*Function mask - initializes to gpio_in*/
+volatile unsigned int mtex;             /*mutex lock*/
 };
 
+/*Holds the set of GPIO pins for use by the system*/
+struct gpio_pin pin_set[52];
+
+/*Initialize the set of gpio_pins for system use*/
+extern int init_gpio(struct gpio_pin *pin_arr, int size);
 
 #endif // GPIO_H_INCLUDED

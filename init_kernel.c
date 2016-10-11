@@ -2,14 +2,14 @@
 
 
 /*Func: Kernel_Main
- * 
+ *
  * ARGS: r0, r1 and atags. TODO get definitions from arm processor manual
- * 
+ *
  * Modified from the baremetal tutorials on Valvers.com
  *
- * Entry point for the kernel image, 
+ * Entry point for the kernel image,
  * Initializes the GPIO pin and sets it to on waits for some time
- * Sets it to off and waits for some time. 
+ * Sets it to off and waits for some time.
  */
 
 /* GPIO Register set */
@@ -21,7 +21,7 @@ volatile unsigned int tim;
 void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
 {
 
-    struct gpio_pin pin_set[52]; /*Holds the set of GPIO Pins*/
+     /*Holds the set of GPIO Pins*/
 
 
     /*Initialize the gpio pins based on location and*/
