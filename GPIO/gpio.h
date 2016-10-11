@@ -70,7 +70,7 @@
 
 
 
-/*Enumeration type for the function GPIO function select mask
+/*Defines for the function GPIO function select mask
 *000 = GPIO Pin is an input
  001 = GPIO Pin is an output
  100 = GPIO Pin alternative funct 0
@@ -80,16 +80,16 @@
  011 = GPIO pin alternative funct 4
  010 = GPIO pin alternative funct 5
  */
-enum fslct_msk{
-gpio_in,
-gpio_out,
-gpio_ffive,
-gpio_four,
-gpio_fzero,
-gpio_fone,
-gpio_ftwo,
-gpio_fthree
-};
+
+#define INPUT 0 /*Set GPIO Pin to input --Always on INIT*/
+#define OUTPUT 1 /*Set GPIO pin to output*/
+#define ALTFIVE 2 /*Set GPIO pint to Alternative function five*/
+#define ALTFOUR 3  /*. . .*/
+#define ALTZERO 4
+#define ALTONE 5
+#define ALTTWO 6
+#define ALTHREE 7
+
 
 
 /*Structure will hold the GPIO Pin data
