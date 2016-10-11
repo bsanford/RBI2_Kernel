@@ -102,7 +102,7 @@ struct gpio_pin{
 volatile unsigned int p_nmb; /*The GPIO Pin number*/
 volatile unsigned int fnc_slt; /*Its associated function select*/
 volatile unsigned int funct_mask;        /*Function mask - initializes to gpio_in*/
-volatile unsigned int mtex;             /*mutex lock*/
+unsigned int mtex;             /*mutex lock*/
 };
 
 /*Holds the set of GPIO pins for use by the system*/

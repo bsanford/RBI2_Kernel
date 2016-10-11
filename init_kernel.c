@@ -13,10 +13,10 @@
  */
 
 /* GPIO Register set */
-volatile unsigned int* gpio;
+//volatile unsigned int* gpio;
 
 /** Simple loop variable */
-volatile unsigned int tim;
+//volatile unsigned int tim;
 
 void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
 {
@@ -25,9 +25,10 @@ void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
 
 
     /*Initialize the gpio pins based on location and*/
+   volatile unsigned int tim;
 
     /* Assign the address of the GPIO peripheral (Using ARM Physical Address) */
-    gpio = (unsigned int*)GPIO_BASE;
+   volatile unsigned int *gpio = (unsigned int*)GPIO_BASE;
 
     /* Write 1 to the GPIO16 init nibble in the Function Select 1 GPIO
        peripheral register to enable GPIO16 as an output */
@@ -43,7 +44,7 @@ void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
            for plus models )*/
         gpio[LED_GPCLR] = (1 << LED_GPIO_BIT);
 
-        for(tim = 0; tim < 500000; tim++)
+        for(tim = 0; tim < 900000; tim++)
             ;
 
         /* Set the LED GPIO pin high ( Turn OK LED off for original Pi, and on
