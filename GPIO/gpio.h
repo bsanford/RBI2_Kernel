@@ -14,6 +14,7 @@
 #define GPIO_H_INCLUDED
 
 #define GPIO_BASE       0x3F200000UL
+#define PIN_SET         52  //Set of GPIO pins
 
 
 

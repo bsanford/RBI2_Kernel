@@ -17,7 +17,7 @@ void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
 
     /*Holds the set of GPIO Pins*/
 
-    if((init_gpio(pin_set, 52)) == -1) //Initialization test, needs to move to a controller
+    if((init_gpio(pin_set, PIN_SET)) == -1) //Initialization test, needs to move to a controller
          while(1); //Trap this for now
 
     /*Initialize the gpio pins based on location and*/
