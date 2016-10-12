@@ -1,124 +1,101 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_project_file>
-	<FileVersion major="1" minor="6" />
-	<Project>
-		<Option title="armc-Kernel" />
-		<Option makefile_is_custom="1" />
-		<Option compiler="gcc" />
-		<Option virtualFolders="CMake Files/;" />
-		<Build>
-			<Target title="all">
-				<Option type="4" />
-				<Option compiler="gcc" />
-				<MakeCommands>
-					<Build command='/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 all' />
-					<CompileFile command='/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
-					<Clean command='/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 clean' />
-					<DistClean command='/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 clean' />
-					<AskRebuildNeeded command="$make -q -f $makefile $target" />
-					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
-				</MakeCommands>
-			</Target>
-			<Target title="edit_cache">
-				<Option type="4" />
-				<Option compiler="gcc" />
-				<MakeCommands>
-					<Build command='/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 edit_cache' />
-					<CompileFile command='/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
-					<Clean command='/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 clean' />
-					<DistClean command='/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 clean' />
-					<AskRebuildNeeded command="$make -q -f $makefile $target" />
-					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
-				</MakeCommands>
-			</Target>
-			<Target title="rebuild_cache">
-				<Option type="4" />
-				<Option compiler="gcc" />
-				<MakeCommands>
-					<Build command='/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 rebuild_cache' />
-					<CompileFile command='/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
-					<Clean command='/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 clean' />
-					<DistClean command='/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 clean' />
-					<AskRebuildNeeded command="$make -q -f $makefile $target" />
-					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
-				</MakeCommands>
-			</Target>
-			<Target title="armc-kernel">
-				<Option output="/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/armc-kernel" prefix_auto="0" extension_auto="0" />
-				<Option working_dir="/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt" />
-				<Option object_output="./" />
-				<Option type="1" />
-				<Option compiler="gcc" />
-				<Compiler>
-					<Add option="-DRPI2=1" />
-					<Add directory="/usr/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/include" />
-					<Add directory="/usr/bin/../lib/gcc/arm-none-eabi/5.4.1/include" />
-					<Add directory="/usr/bin/../lib/gcc/arm-none-eabi/5.4.1/include-fixed" />
-				</Compiler>
-				<MakeCommands>
-					<Build command='/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 armc-kernel' />
-					<CompileFile command='/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
-					<Clean command='/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 clean' />
-					<DistClean command='/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 clean' />
-					<AskRebuildNeeded command="$make -q -f $makefile $target" />
-					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
-				</MakeCommands>
-			</Target>
-			<Target title="armc-kernel/fast">
-				<Option output="/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/armc-kernel" prefix_auto="0" extension_auto="0" />
-				<Option working_dir="/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt" />
-				<Option object_output="./" />
-				<Option type="1" />
-				<Option compiler="gcc" />
-				<Compiler>
-					<Add option="-DRPI2=1" />
-					<Add directory="/usr/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/include" />
-					<Add directory="/usr/bin/../lib/gcc/arm-none-eabi/5.4.1/include" />
-					<Add directory="/usr/bin/../lib/gcc/arm-none-eabi/5.4.1/include-fixed" />
-				</Compiler>
-				<MakeCommands>
-					<Build command='/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 armc-kernel/fast' />
-					<CompileFile command='/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
-					<Clean command='/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 clean' />
-					<DistClean command='/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 clean' />
-					<AskRebuildNeeded command="$make -q -f $makefile $target" />
-					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
-				</MakeCommands>
-			</Target>
-		</Build>
-		<Unit filename="../CMakeLists.txt">
-			<Option virtualFolder="CMake Files/" />
-		</Unit>
-		<Unit filename="../GPIO/gpio.c">
-			<Option compilerVar="CC" />
-			<Option target="armc-kernel" />
-		</Unit>
-		<Unit filename="../GPIO/gpio.h">
-			<Option target="edit_cache" />
-			<Option target="rebuild_cache" />
-			<Option target="armc-kernel" />
-		</Unit>
-		<Unit filename="../armc-cstartup.c">
-			<Option compilerVar="CC" />
-			<Option target="armc-kernel" />
-		</Unit>
-		<Unit filename="../armc-start.S">
-			<Option target="armc-kernel" />
-		</Unit>
-		<Unit filename="../init_kernel.c">
-			<Option compilerVar="CC" />
-			<Option target="edit_cache" />
-			<Option target="rebuild_cache" />
-			<Option target="armc-kernel" />
-			<Option target="armc-kernel/fast" />
-		</Unit>
-		<Unit filename="../toolchain-arm-none-eabi-rpi2.cmake">
-			<Option virtualFolder="CMake Files/" />
-		</Unit>
-		<Unit filename="kernel_init.ads" />
-		<Extensions>
-			<code_completion />
-			<debugger />
-		</Extensions>
-	</Project>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="armc-Kernel" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 all" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="edit_cache">
+         <Option working_dir="/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 edit_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rebuild_cache">
+         <Option working_dir="/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 rebuild_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="armc-kernel">
+         <Option output="/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/armc-kernel" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-DRPI2=1" />
+            <Add directory="/usr/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/include" />
+            <Add directory="/usr/bin/../lib/gcc/arm-none-eabi/5.4.1/include" />
+            <Add directory="/usr/bin/../lib/gcc/arm-none-eabi/5.4.1/include-fixed" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 armc-kernel" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="armc-kernel/fast">
+         <Option output="/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/armc-kernel" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-DRPI2=1" />
+            <Add directory="/usr/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/include" />
+            <Add directory="/usr/bin/../lib/gcc/arm-none-eabi/5.4.1/include" />
+            <Add directory="/usr/bin/../lib/gcc/arm-none-eabi/5.4.1/include-fixed" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 armc-kernel/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/bbot/Projects/RBI2/RBI2_Kernel/Bld_Scrpt/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="/home/bbot/Projects/RBI2/RBI2_Kernel/GPIO/gpio.c">
+         <Option target="armc-kernel"/>
+      </Unit>
+      <Unit filename="/home/bbot/Projects/RBI2/RBI2_Kernel/GPIO/gpio.h">
+         <Option target="armc-kernel"/>
+      </Unit>
+      <Unit filename="/home/bbot/Projects/RBI2/RBI2_Kernel/armc-cstartup.c">
+         <Option target="armc-kernel"/>
+      </Unit>
+      <Unit filename="/home/bbot/Projects/RBI2/RBI2_Kernel/armc-start.S">
+         <Option target="armc-kernel"/>
+      </Unit>
+      <Unit filename="/home/bbot/Projects/RBI2/RBI2_Kernel/init_kernel.c">
+         <Option target="armc-kernel"/>
+      </Unit>
+      <Unit filename="/home/bbot/Projects/RBI2/RBI2_Kernel/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/bbot/Projects/RBI2/RBI2_Kernel/toolchain-arm-none-eabi-rpi2.cmake">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+   </Project>
 </CodeBlocks_project_file>

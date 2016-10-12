@@ -1,4 +1,6 @@
+#include<stddef.h>
 #include "gpio.h"
+
 
 
 
@@ -32,7 +34,7 @@ return 0;
 
 int get_pin_val(struct gpio_pin *pin){
 return 0;
-}_
+}
 
 
 int is_mtex(struct gpio_pin *pin){

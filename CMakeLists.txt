@@ -48,7 +48,8 @@ set( CMAKE_EXE_LINKER_FLAGS "-Wl,-T,${PROJECT_SOURCE_DIR}/rpi.x" )
 add_executable( armc-kernel
     armc-cstartup.c
     armc-start.S
-    init_kernel.c)
+    init_kernel.c
+    GPIO/gpio.c)
 
 add_custom_command(
     TARGET armc-kernel POST_BUILD
