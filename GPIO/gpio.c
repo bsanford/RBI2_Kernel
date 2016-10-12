@@ -1,6 +1,8 @@
 #include<stddef.h>
 #include "gpio.h"
 
+/*GPIO.c standard functionality for the gpio pin set*/
+
 
 
 
@@ -18,9 +20,16 @@
 
 int init_gpio(struct gpio_pin *pin_arr, int size){
 
+unsigned int index;
+
 if(pin_arr == NULL)
     return -1;
 
+/*TODO add in support for appropriate func select register*/
+for(index = 0; index < size; index++){
+    pin_arr[index].mtex = 0;
+    pin_arr[index].p_nmb = index;
+}
 return 0;
 }
 

@@ -12,17 +12,13 @@
  * Sets it to off and waits for some time.
  */
 
-/* GPIO Register set */
-//volatile unsigned int* gpio;
-
-/** Simple loop variable */
-//volatile unsigned int tim;
-
 void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
 {
 
     /*Holds the set of GPIO Pins*/
 
+    if((init_gpio(pin_set, 52)) == -1) //Initialization test, needs to move to a controller
+         while(1); //Trap this for now
 
     /*Initialize the gpio pins based on location and*/
    volatile unsigned int tim;
@@ -37,8 +33,7 @@ void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
     /* Never exit as there is no OS to exit to! */
     while(1)
     {
-        for(tim = 0; tim < 500000; tim++)
-            ;
+        for(tim = 0; tim < 500000; tim++);
 
         /* Set the LED GPIO pin low ( Turn OK LED on for original Pi, and off
            for plus models )*/

@@ -109,6 +109,6 @@ unsigned int mtex;             /*mutex lock*/
 struct gpio_pin pin_set[52];
 
 /*Initialize the set of gpio_pins for system use*/
-extern int init_gpio(struct gpio_pin *pin_arr, int size);
+int init_gpio(struct gpio_pin *pin_arr, int size);
 
 #endif // GPIO_H_INCLUDED
