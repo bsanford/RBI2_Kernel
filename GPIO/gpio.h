@@ -26,7 +26,7 @@
 
 
 
-
+/*Function select Registers*/
 #define GPIO_GPFSEL0    0
 #define GPIO_GPFSEL1    1
 #define GPIO_GPFSEL2    2
@@ -110,6 +110,6 @@ unsigned int mtex;             /*mutex lock*/
 struct gpio_pin pin_set[52];
 
 /*Initialize the set of gpio_pins for system use*/
-int init_gpio(struct gpio_pin *pin_arr, int size);
+int init_gpio(struct gpio_pin *pin_arr, unsigned int size);
 
 #endif // GPIO_H_INCLUDED
