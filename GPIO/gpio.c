@@ -2,8 +2,7 @@
 #include "gpio.h"
 
 static int set_fnc_slct(struct gpio_pin *pin);
-
-
+static int set_clr_out_dtct_reg(struct gpio_pin *pin);
 
 
 
@@ -31,6 +30,9 @@ for(index = 0; index < size; index++){
 
      if((set_fnc_slct(pin_arr + index)) == -1)
           return (-1);
+
+     if(set_clr_out_dtct_reg(pin_arr + index) == -1)
+         return (-1);
 }
 return 0;
 }
@@ -91,6 +93,35 @@ static int set_fnc_slct(struct gpio_pin *pin){
 }
 
 
+/*Function set_clr_out_dtct_reg
+ * Args - Struct gpio_pin
+ * Recieves a GPIO pin as an argument and based on its pin number
+ * sets up the register location for gpio Pin output, Pin clear and Pin
+ * Level select registers
+ *
+ * Todo: Add in support for the other types of registers
+ */
+static int set_clr_out_dtct_reg(struct gpio_pin *pin)
+{
+
+    if(pin == NULL)
+        return (-1);
+
+    if(pin->p_nmb <= 31){
+        pin->gpio_clr_reg = GPIO_GPCLR0;
+        pin->gpio_lvl_reg = GPIO_GPLEV0;
+        pin->gpio_out_reg = GPIO_GPSET0;
+        return (0);
+    }
+    if(pin->p_nmb <= 53){
+        pin->gpio_clr_reg = GPIO_GPCLR1;
+        pin->gpio_lvl_reg = GPIO_GPLEV1;
+        pin->gpio_out_reg = GPIO_GPSET1;
+        return (0);
+    }
+
+    return (-1); /*Should never reach this*/
+}
 
 
 int set_pin_func(struct gpio_pin *pin){
