@@ -38,14 +38,14 @@ void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
 
         /* Set the LED GPIO pin low ( Turn OK LED on for original Pi, and off
            for plus models )*/
-        gpio[LED_GPCLR] = (1 << LED_GPIO_BIT);
+        //gpio[LED_GPCLR] = (1 << LED_GPIO_BIT);
+        gpio[pin_set[18].gpio_clr_reg] = (1 << pin_set[18].p_nmb);
 
-        for(tim = 0; tim < 900000; tim++)
-            ;
+        for(tim = 0; tim < 900000; tim++);
 
         /* Set the LED GPIO pin high ( Turn OK LED off for original Pi, and on
            for plus models )*/
-        gpio[LED_GPSET] = (1 << LED_GPIO_BIT);
+        gpio[pin_set[18].gpio_out_reg] = (1 << pin_set[18].p_nmb);
     }
 }
 
