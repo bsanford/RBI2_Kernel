@@ -1,4 +1,3 @@
-#include<stdint.h>
 /*Modified from valvers.com tutorials
 *
 * Location offsets for the Broadcom BCM2836
@@ -102,7 +101,10 @@
 struct gpio_pin{
 volatile unsigned int p_nmb; /*The GPIO Pin number*/
 volatile unsigned int fnc_slt; /*Its associated function select*/
-volatile unsigned int funct_mask;        /*Function mask - initializes to gpio_in*/
+volatile unsigned int funct_mask;   /*Function mask - initializes to gpio_in*/
+volatile unsigned int gpio_out_reg;  /*Register location for ouputs*/
+volatile unsigned int gpio_clr_reg;  /*Register location to clear the outputs*/
+volatile unsigned int gpio_lvl_reg; /*Register_to_detect the pin lvl;*/
 unsigned int mtex;             /*mutex lock*/
 };
 
