@@ -16,7 +16,7 @@
 #define PIN_SET         53  //Set of GPIO pins
 
 
-
+/*TODO NEED TO GET RID OF THIS*/
 #define LED_GPFSEL      GPIO_GPFSEL1
 #define LED_GPFBIT      24
 #define LED_GPSET       GPIO_GPSET0
@@ -100,11 +100,11 @@
 
 struct gpio_pin{
 volatile unsigned int p_nmb; /*The GPIO Pin number*/
-volatile unsigned int fnc_slt; /*Its associated function select*/
-volatile unsigned int funct_mask;   /*Function mask - initializes to gpio_in*/
-volatile unsigned int gpio_out_reg;  /*Register location for ouputs*/
-volatile unsigned int gpio_clr_reg;  /*Register location to clear the outputs*/
-volatile unsigned int gpio_lvl_reg; /*Register_to_detect the pin lvl;*/
+volatile unsigned int *fnc_slt; /*Its associated function select*/
+volatile unsigned int *funct_mask;   /*Function mask - initializes to gpio_in*/
+volatile unsigned int *gpio_out_reg;  /*Register location for ouputs*/
+volatile unsigned int *gpio_clr_reg;  /*Register location to clear the outputs*/
+volatile unsigned int *gpio_lvl_reg; /*Register_to_detect the pin lvl;*/
 unsigned int mtex;             /*mutex lock*/
 };
 

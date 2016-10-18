@@ -60,31 +60,31 @@ static int set_fnc_slct(struct gpio_pin *pin){
         return (-1);
 
     if(pin->p_nmb <= 9){
-         pin->fnc_slt = GPIO_GPFSEL0;
+         pin->fnc_slt = (unsigned int *) GPIO_BASE + GPIO_GPFSEL0;
          return (0);
          }
     if(pin->p_nmb <= 19){
-         pin->fnc_slt = GPIO_GPFSEL1;
+         pin->fnc_slt = (unsigned int *) GPIO_BASE + GPIO_GPFSEL1;
          return (0);
     }
 
     if(pin->p_nmb <= 29){
-        pin->fnc_slt = GPIO_GPFSEL2;
+        pin->fnc_slt = (unsigned int *) GPIO_BASE + GPIO_GPFSEL2;
         return (0);
     }
 
     if(pin->p_nmb <= 39){
-        pin->fnc_slt = GPIO_GPFSEL3;
+        pin->fnc_slt = (unsigned int *) GPIO_BASE + GPIO_GPFSEL3;
         return(0);
     }
 
    if(pin->p_nmb <= 49){
-        pin->fnc_slt = GPIO_GPFSEL4;
+        pin->fnc_slt = (unsigned int *) GPIO_BASE + GPIO_GPFSEL4;
         return(0);
    }
 
    if(pin->p_nmb <= 53){
-        pin->fnc_slt = GPIO_GPFSEL5;
+        pin->fnc_slt = (unsigned int *) GPIO_BASE + GPIO_GPFSEL5;
         return (0);
    }
 
@@ -108,15 +108,15 @@ static int set_clr_out_dtct_reg(struct gpio_pin *pin)
         return (-1);
 
     if(pin->p_nmb <= 31){
-        pin->gpio_clr_reg = GPIO_GPCLR0;
-        pin->gpio_lvl_reg = GPIO_GPLEV0;
-        pin->gpio_out_reg = GPIO_GPSET0;
+        pin->gpio_clr_reg = (unsigned int *) GPIO_BASE + GPIO_GPCLR0;
+        pin->gpio_lvl_reg = (unsigned int *) GPIO_BASE + GPIO_GPLEV0;
+        pin->gpio_out_reg = (unsigned int *) GPIO_BASE + GPIO_GPSET0;
         return (0);
     }
     if(pin->p_nmb <= 53){
-        pin->gpio_clr_reg = GPIO_GPCLR1;
-        pin->gpio_lvl_reg = GPIO_GPLEV1;
-        pin->gpio_out_reg = GPIO_GPSET1;
+        pin->gpio_clr_reg = (unsigned int *) GPIO_BASE + GPIO_GPCLR1;
+        pin->gpio_lvl_reg = (unsigned int *) GPIO_BASE + GPIO_GPLEV1;
+        pin->gpio_out_reg = (unsigned int *) GPIO_BASE + GPIO_GPSET1;
         return (0);
     }
 
