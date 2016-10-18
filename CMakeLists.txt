@@ -51,6 +51,8 @@ add_executable( armc-kernel
     init_kernel.c
     GPIO/gpio.c)
 
+include_directories($(PROJECT_SOURCE_DIR)/includes)
+
 add_custom_command(
     TARGET armc-kernel POST_BUILD
     COMMAND ${CMAKE_OBJCOPY} ./armc-kernel -O binary ./kernel.img
