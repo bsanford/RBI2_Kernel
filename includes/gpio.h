@@ -16,15 +16,6 @@
 #define PIN_SET_SIZE         53  //Set of GPIO pins
 
 
-/*TODO NEED TO GET RID OF THIS*/
-#define LED_GPFSEL      GPIO_GPFSEL1
-#define LED_GPFBIT      24
-#define LED_GPSET       GPIO_GPSET0
-#define LED_GPCLR       GPIO_GPCLR0
-#define LED_GPIO_BIT    18
-
-
-
 /*Function select Registers*/
 #define GPIO_GPFSEL0    0
 #define GPIO_GPFSEL1    1
