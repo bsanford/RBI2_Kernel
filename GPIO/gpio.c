@@ -124,18 +124,5 @@ static int set_clr_out_dtct_reg(struct gpio_pin *pin)
 }
 
 
-int set_pin_func(struct gpio_pin *pin){
-return 0;
-}
 
-
-int get_pin_val(struct gpio_pin *pin){
-return 0;
-}
-
-
-int is_mtex(struct gpio_pin *pin){
-
- return pin->mtex;
-}
 
