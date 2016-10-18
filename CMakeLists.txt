@@ -49,9 +49,11 @@ add_executable( armc-kernel
     armc-cstartup.c
     armc-start.S
     init_kernel.c
-    GPIO/gpio.c)
+    GPIO/gpio.c
+    TEST/gpio_test.c)
 
 include_directories($(PROJECT_SOURCE_DIR)/includes)
+include_directories($(PROJECT_SOURCE_DIR)/TEST)
 
 add_custom_command(
     TARGET armc-kernel POST_BUILD

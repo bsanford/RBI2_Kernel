@@ -13,7 +13,7 @@
 #define GPIO_H_INCLUDED
 
 #define GPIO_BASE       0x3F200000UL
-#define PIN_SET         53  //Set of GPIO pins
+#define PIN_SET_SIZE         53  //Set of GPIO pins
 
 
 /*TODO NEED TO GET RID OF THIS*/
@@ -109,7 +109,7 @@ unsigned int mtex;             /*mutex lock*/
 };
 
 /*Holds the set of GPIO pins for use by the system*/
-struct gpio_pin pin_set[53];
+struct gpio_pin pin_set[PIN_SET_SIZE];
 
 /*Initialize the set of gpio_pins for system use*/
 int init_gpio(struct gpio_pin *pin_arr, unsigned int size);

@@ -45,6 +45,7 @@
          <Option compiler="gcc" />
          <Compiler>
             <Add option="-DRPI2=1" />
+            <Add directory="/home/bbot/Projects/RBI2/RBI2_Kernel/$(PROJECT_SOURCE_DIR)/TEST" />
             <Add directory="/home/bbot/Projects/RBI2/RBI2_Kernel/$(PROJECT_SOURCE_DIR)/includes" />
             <Add directory="/usr/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/include" />
             <Add directory="/usr/bin/../lib/gcc/arm-none-eabi/5.4.1/include" />
@@ -65,6 +66,7 @@
          <Option compiler="gcc" />
          <Compiler>
             <Add option="-DRPI2=1" />
+            <Add directory="/home/bbot/Projects/RBI2/RBI2_Kernel/$(PROJECT_SOURCE_DIR)/TEST" />
             <Add directory="/home/bbot/Projects/RBI2/RBI2_Kernel/$(PROJECT_SOURCE_DIR)/includes" />
             <Add directory="/usr/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/include" />
             <Add directory="/usr/bin/../lib/gcc/arm-none-eabi/5.4.1/include" />
@@ -79,6 +81,12 @@
       </Target>
       </Build>
       <Unit filename="/home/bbot/Projects/RBI2/RBI2_Kernel/GPIO/gpio.c">
+         <Option target="armc-kernel"/>
+      </Unit>
+      <Unit filename="/home/bbot/Projects/RBI2/RBI2_Kernel/TEST/gpio_test.c">
+         <Option target="armc-kernel"/>
+      </Unit>
+      <Unit filename="/home/bbot/Projects/RBI2/RBI2_Kernel/TEST/gpio_test.h">
          <Option target="armc-kernel"/>
       </Unit>
       <Unit filename="/home/bbot/Projects/RBI2/RBI2_Kernel/armc-cstartup.c">
