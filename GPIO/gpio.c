@@ -18,7 +18,7 @@ static int set_clr_out_dtct_reg(struct gpio_pin *pin);
 
 int init_gpio(struct gpio_pin *pin_arr, unsigned int size){
 
-unsigned int index;
+int index;
 
 if(pin_arr == NULL)
     return -1;
@@ -50,7 +50,7 @@ return 0;
  *      10 -19 at GPIO_GPFSEL2
  *      .
  *       .
- *       52 at GPIO_GPFSEL 5
+ *       53 at GPIO_GPFSEL 5
  */
 
 
