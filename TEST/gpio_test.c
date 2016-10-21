@@ -17,31 +17,21 @@ int gpio_test(struct gpio_pin *pins, int size)
 {
  volatile unsigned int tim;
 
-    /* Assign the address of the GPIO peripheral (Using ARM Physical Address) */
-   //volatile unsigned int *gpio = (unsigned int*)GPIO_BASE;
-
-    /* Write 1 to the GPIO16 init nibble in the Function Select 1 GPIO
-       peripheral register to enable GPIO16 as an output */
-    //gpio[LED_GPFSEL] |= (OUTPUT << LED_GPFBIT); /*LED_GPFSEL should be in the function, and LED_GPFBIT*
-
-      if((set_gpio_out(&pins[18], 1)) == -1)
+      if((set_gpio_fnct(&pins[18], 1)) == -1)
             return (-1);
 
-    /* Never exit as there is no OS to exit to! */
-    while(1)
+        while(1)
     {
         for(tim = 0; tim < 500000; tim++);
 
-        /* Set the LED GPIO pin low ( Turn OK LED on for original Pi, and off
-           for plus models )*/
-        //gpio[LED_GPCLR] = (1 << LED_GPIO_BIT);
-        *(pins[18].gpio_clr_reg) = (1 << pins[18].p_nmb);
+           if((send_gpio_sig(&pins[18])) == -1) /*Send a 3.3v signal to pin 18*/
+                return (-1);
 
-        for(tim = 0; tim < 900000; tim++);
+          for(tim = 0; tim < 900000; tim++);
 
-        /* Set the LED GPIO pin high ( Turn OK LED off for original Pi, and on
-           for plus models )*/
-        *(pins[18].gpio_out_reg) = (1 << pins[18].p_nmb);
+      if((clear_gpio_sig(&pins[18])) == -1) /*Clear the signal form pin 18*/
+            return (-1);
+
     }
 
     return (0);

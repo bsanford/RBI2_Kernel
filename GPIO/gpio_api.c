@@ -2,11 +2,31 @@
 #include "gpio_api.h"
 
 
+int send_gpio_sig(struct gpio_pin *pin){
+
+    if(pin == NULL)
+        return (-1);
+
+    *(pin->gpio_out_reg) = (1 << (pin->p_nmb));
+
+    return (0);
+}
 
 
 
 
-int set_gpio_out(struct gpio_pin *pin, int pin_fnc)
+int clear_gpio_sig(struct gpio_pin *pin){
+    if(pin == NULL)
+        return (-1);
+
+     *(pin->gpio_clr_reg) = (1 << (pin->p_nmb));
+     return (0);
+
+}
+
+
+
+int set_gpio_fnct(struct gpio_pin *pin, int pin_fnc)
 {
    int fun_reg_bits;
    if(pin == NULL)
@@ -61,3 +81,5 @@ int set_gpio_out(struct gpio_pin *pin, int pin_fnc)
     return(0);
 
 }
+
+

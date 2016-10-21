@@ -1,8 +1,8 @@
 #include<stddef.h>
 #include "gpio.h"
 
-static int set_fnc_slct(struct gpio_pin *pin);
-static int set_clr_out_dtct_reg(struct gpio_pin *pin);
+static int init_fnc_slct(struct gpio_pin *pin);
+static int init_clr_out_dtct_reg(struct gpio_pin *pin);
 
 
 
@@ -28,10 +28,10 @@ for(index = 0; index < size; index++){
      (pin_arr + index)->mtex = 0;
      (pin_arr + index)->p_nmb = index;
 
-     if((set_fnc_slct(pin_arr + index)) == -1)
+     if((init_fnc_slct(pin_arr + index)) == -1)
           return (-1);
 
-     if(set_clr_out_dtct_reg(pin_arr + index) == -1)
+     if(init_clr_out_dtct_reg(pin_arr + index) == -1)
          return (-1);
 }
 return 0;
@@ -54,7 +54,7 @@ return 0;
  */
 
 
-static int set_fnc_slct(struct gpio_pin *pin){
+static int init_fnc_slct(struct gpio_pin *pin){
 
     if(pin == NULL)
         return (-1);
@@ -101,7 +101,7 @@ static int set_fnc_slct(struct gpio_pin *pin){
  *
  * Todo: Add in support for the other types of registers
  */
-static int set_clr_out_dtct_reg(struct gpio_pin *pin)
+static int init_clr_out_dtct_reg(struct gpio_pin *pin)
 {
 
     if(pin == NULL)
