@@ -29,7 +29,7 @@ int set_gpio_out(struct gpio_pin *pin, int pin_fnc)
     break;
 
    case 3:
-    *(pin->fnc_slt) |= (pin_fnc << 6);
+    *(pin->fnc_slt) |= (pin_fnc << 9);
     break;
 
    case 4:
