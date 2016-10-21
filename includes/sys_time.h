@@ -22,7 +22,8 @@ struct sys_time_reg{
  *system clock control registers.
  */
 
-struct sys_time_reg *get_sys_time(void);
+struct sys_time_reg *get_sys_clock(void);
+
 
 
 

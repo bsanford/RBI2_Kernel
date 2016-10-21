@@ -51,7 +51,8 @@ add_executable( armc-kernel
     init_kernel.c
     GPIO/gpio.c
     GPIO/gpio_api.c
-    TEST/gpio_test.c)
+    TEST/gpio_test.c
+    SYS/sys_clock.c)
 
 include_directories($(PROJECT_SOURCE_DIR)/includes)
 include_directories($(PROJECT_SOURCE_DIR)/TEST)
