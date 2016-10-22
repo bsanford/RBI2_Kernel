@@ -1,7 +1,10 @@
 #include <stddef.h>
 #include "gpio_api.h"
 
-
+/*Function: send_gpio_sig
+ * GIven a GPIO pin structure the function will
+ * write a one to the GPIO out register
+ */
 int send_gpio_sig(struct gpio_pin *pin){
 
     if(pin == NULL)
@@ -14,7 +17,11 @@ int send_gpio_sig(struct gpio_pin *pin){
 
 
 
-
+/*Function: clear_gpio_sig
+ *Given a GPIO pin structure the function will
+ *write a one to its location in the the clear
+ *register
+ */
 int clear_gpio_sig(struct gpio_pin *pin){
     if(pin == NULL)
         return (-1);
@@ -25,6 +32,13 @@ int clear_gpio_sig(struct gpio_pin *pin){
 }
 
 
+/*Function: set_gpio_fnct
+ *Given a gpio_pin and its associated GPIO function
+ *this will take the modulus of the pin number and which finds lower
+ * order bits of its mapping in its function slelect location. Function
+ * will then write the GPIO function assignment to the particular register:
+ *
+ */
 
 int set_gpio_fnct(struct gpio_pin *pin, int pin_fnc)
 {
