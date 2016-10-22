@@ -1,16 +1,17 @@
 #ifndef SYS_TIME_H_INCLUDED
 #define SYS_TIME_H_INCLUDED
 
-#endif // SYS_TIME_H_INCLUDED
+
+
+#include<stdint.h>
 
 struct sys_time_reg{
-    volatile int *cntrl_status; /*System clock control status*/
-    volatile int *lo_32bits;
-    volatile int *hi_32bits;
-    volatile int *time_cmpr_0;
-    volatile int *time_cmpr_1;
-    volatile int *time_cmpr_2;
-    volatile int *time_cmpr_3;
+    volatile uint32_t  lo_32bits;
+    volatile uint32_t  hi_32bits;
+    volatile uint32_t  time_cmpr_0;
+    volatile uint32_t  time_cmpr_1;
+    volatile uint32_t  time_cmpr_2;
+    volatile uint32_t  time_cmpr_3;
 
 };
 
@@ -24,8 +25,6 @@ struct sys_time_reg{
 
 struct sys_time_reg *get_sys_clock(void);
 
-
-
-
 /*TODO - Set up control status functions to systime based interrupts */
 
+#endif // SYS_TIME_H_INCLUDED

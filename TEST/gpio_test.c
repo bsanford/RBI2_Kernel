@@ -6,11 +6,11 @@
 
 
 /*Test function to use the system clock*/
-void sleep(int micros){
+void sleep(uint32_t micros){
 
-  int curr = *(get_sys_clock()->lo_32bits) + micros;
+  volatile uint32_t curr = (get_sys_clock()->lo_32bits);
 
-  while(*(get_sys_clock()->lo_32bits) < curr);
+  while((get_sys_clock()->lo_32bits - curr) < micros);
 
 }
 
@@ -34,14 +34,14 @@ int gpio_test(struct gpio_pin *pins, int size)
         while(1)
     {
         //for(tim = 0; tim < 500000; tim++);
-          sleep(5000000);
+          sleep(500000);
 
            if((send_gpio_sig(&pins[18])) == -1) /*Send a 3.3v signal to pin 18*/
                 return (-1);
 
          // for(tim = 0; tim < 900000; tim++);
 
-         sleep(5000000);
+         sleep(500000);
 
       if((clear_gpio_sig(&pins[18])) == -1) /*Clear the signal form pin 18*/
             return (-1);

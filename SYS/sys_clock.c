@@ -1,13 +1,11 @@
 #include"sys_time.h"
-
-
-#define SYS_CLK_BASE 0x20003000
-
+#define SYS_CLK_BASE  0x3F003000
 
 
 /*Function: get_sys_clock
  *Return the address to the structure type pointing
- *at the base address of the s
+ *
+ *Singleton just returns the address to the structure
  */
 struct sys_time_reg *get_sys_clock(void){
 
