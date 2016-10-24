@@ -52,7 +52,9 @@ add_executable( armc-kernel
     GPIO/gpio.c
     GPIO/gpio_api.c
     TEST/gpio_test.c
-    SYS/sys_clock.c)
+    SYS/sys_clock.c
+    SYS/rpi-armtimer.c
+    INTERRUPTS/rpi-interrupts.c)
 
 include_directories($(PROJECT_SOURCE_DIR)/includes)
 include_directories($(PROJECT_SOURCE_DIR)/TEST)

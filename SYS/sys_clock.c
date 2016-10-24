@@ -7,8 +7,6 @@
  *Singleton just returns the address to the structure
  */
 
-
-
 struct sys_time_reg *get_sys_clock(void){
 
 static struct sys_time_reg *system_clock = (struct sys_time_reg *) SYS_CLK_BASE;
