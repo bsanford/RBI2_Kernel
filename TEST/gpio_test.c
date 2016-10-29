@@ -37,9 +37,9 @@ int gpio_test(struct gpio_pin *pins, int size)
 
        //Initialize the Uart for reading and writing;
 
-      init_uart_pins(&pins[14], &pins[15]);
+    init_uart_pins(&pins[14], &pins[15]);
 
-      RPI_AuxMiniUartInit(115200, 8);
+     mini_uart_init(115200, 8);
 
       printf("HELLO \r\n");
       printf("HELLO \r\n");

@@ -6,8 +6,6 @@
 */
 
 static struct gpio_uart  *aux_uart  = (struct gpio_uart*) AUX_BASE;
-void RPI_SetGpioPinFunction(struct gpio_pin *pin, int pin_func );
-
 struct gpio_uart* RPI_GetAux( void )
 {
     return aux_uart;
@@ -22,7 +20,7 @@ struct gpio_uart* RPI_GetAux( void )
    http://elinux.org/BCM2835_datasheet_errata */
 
 
-void RPI_AuxMiniUartInit( int baud, int bits, struct gpio_pin *txd_pin, struct gpio_pin *rxd_pin)
+void mini_uart_init(int baud, int bits)
 {
 
     /* As this is a mini uart the configuration is complete! Now just
@@ -65,7 +63,7 @@ void RPI_AuxMiniUartInit( int baud, int bits, struct gpio_pin *txd_pin, struct g
 
 /*Function RPI AuxMiniUartWrite was used from www.valvers.com baremetal tutorials
   part5*/
-void RPI_AuxMiniUartWrite( char c )
+void mini_uart_write( char c )
 {
     //struct gpio_uart *auxillary = RPI_GetAux();
     /* Wait until the UART has an empty space in the FIFO */
