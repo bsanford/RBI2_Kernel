@@ -111,37 +111,21 @@ void __attribute__((interrupt("ABORT"))) data_abort_vector(void)
 void __attribute__((interrupt("IRQ"))) interrupt_vector(void)
 {
     static int lit = 0;
-    static int ticks = 0;
-    static int seconds = 0;
-
-    /* Clear the ARM Timer interrupt - it's the only interrupt we have
+       /* Clear the ARM Timer interrupt - it's the only interrupt we have
        enabled, so we want don't have to work out which interrupt source
        caused us to interrupt */
     RPI_GetArmTimer()->IRQClear = 1;
 
-    ticks++;
-    if( ticks > 1 )
-    {
-        ticks = 0;
-
-        /* Calculate the FPS once a minute */
-        seconds++;
-        if( seconds > 59 )
-        {
-            seconds = 0;
-            calculate_frame_count = 1;
-        }
-    }
 
     /* Flip the LED */
     if( lit )
     {
-        send_gpio_sig(&pin_set[18]);
+        clear_gpio_sig(&pin_set[18]);
         lit = 0;
     }
     else
     {
-        clear_gpio_sig(&pin_set[18]);
+        send_gpio_sig(&pin_set[18]);
         lit = 1;
     }
 }

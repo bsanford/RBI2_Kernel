@@ -1,10 +1,9 @@
 #include<stddef.h>
 #include "gpio.h"
 
+
 static int init_fnc_slct(struct gpio_pin *pin);
 static int init_clr_out_dtct_reg(struct gpio_pin *pin);
-
-
 
 /*Function init_gpio
  *Braeden Sanford 10-11-2016
@@ -89,7 +88,7 @@ static int init_fnc_slct(struct gpio_pin *pin){
    }
 
     /*If we have gotten here it is an error*/
-    return(-1);
+    return(-1); /*Would like to trap this with an interrupt to blink an LED at some point*/
 }
 
 
@@ -111,17 +110,26 @@ static int init_clr_out_dtct_reg(struct gpio_pin *pin)
         pin->gpio_clr_reg = (unsigned int *) GPIO_BASE + GPIO_GPCLR0;
         pin->gpio_lvl_reg = (unsigned int *) GPIO_BASE + GPIO_GPLEV0;
         pin->gpio_out_reg = (unsigned int *) GPIO_BASE + GPIO_GPSET0;
+        pin->gpio_up_dn_clk = (unsigned int *) GPIO_BASE + GPIO_GPPUDCLK0;
+        pin->gpio_pupdown = (unsigned int *) GPIO_BASE + GPIO_GPPUD;
         return (0);
     }
     if(pin->p_nmb <= 53){
         pin->gpio_clr_reg = (unsigned int *) GPIO_BASE + GPIO_GPCLR1;
         pin->gpio_lvl_reg = (unsigned int *) GPIO_BASE + GPIO_GPLEV1;
         pin->gpio_out_reg = (unsigned int *) GPIO_BASE + GPIO_GPSET1;
+        pin->gpio_up_dn_clk = (unsigned int *) GPIO_BASE + GPIO_GPPUDCLK1;
+        pin->gpio_pupdown = (unsigned int *) GPIO_BASE + GPIO_GPPUD; /*Same for both*/
         return (0);
     }
 
     return (-1); /*Should never reach this*/
 }
+
+
+
+
+
 
 
 

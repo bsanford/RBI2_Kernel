@@ -1,5 +1,12 @@
+#include<string.h>
+#include<stdio.h>
+#include<stdlib.h>
+
 #include "gpio_api.h"
 #include "sys_time.h"
+#include "gpio_aux_uart.h"
+
+
 
 
 /*Test the gpio functionality using the api */
@@ -27,19 +34,31 @@ void sleep(uint32_t micros){
 int gpio_test(struct gpio_pin *pins, int size)
 {
 
-      if((set_gpio_fnct(&pins[18], 1)) == -1)
-            return (-1);
+
+       //Initialize the Uart for reading and writing;
+
+      init_uart_pins(&pins[14], &pins[15]);
+
+      RPI_AuxMiniUartInit(115200, 8);
+
+      printf("HELLO \r\n");
+      printf("HELLO \r\n");
+      printf("Welcome to the GPIO controller Interface \r\n");
+
+       if((set_gpio_fnct(&pins[18], OUTPUT)) == -1)
+         return (-1);
 
         while(1)
     {
           sleep(500000);
 
-           if((send_gpio_sig(&pins[18])) == -1) /*Send a 3.3v signal to pin 18*/
+           printf("Sending Light signal to pin 18 \r\n");
+           if((send_gpio_sig(&pin_set[18])) == -1) /*Send a 3.3v signal to pin 18*/
                 return (-1);
 
          sleep(500000);
-
-      if((clear_gpio_sig(&pins[18])) == -1) /*Clear the signal form pin 18*/
+         printf("Sending clear signal to pin 18 \r\n");
+      if((clear_gpio_sig(&pin_set[18])) == -1) /*Clear the signal form pin 18*/
            return (-1);
     }
 
