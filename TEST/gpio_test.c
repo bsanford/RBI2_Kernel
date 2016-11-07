@@ -45,21 +45,24 @@ int gpio_test(struct gpio_pin *pins, int size)
       printf("HELLO \r\n");
       printf("Welcome to the GPIO controller Interface \r\n");
 
-       if((set_gpio_fnct(&pins[18], OUTPUT)) == -1)
-         return (-1);
+       //if((set_gpio_fnct(&pins[18], OUTPUT)) == -1)
+         //return (-1);
 
         while(1)
     {
-          sleep(500000);
 
-           printf("Sending Light signal to pin 18 \r\n");
-           if((send_gpio_sig(&pin_set[18])) == -1) /*Send a 3.3v signal to pin 18*/
-                return (-1);
+        mini_uart_write(mini_uart_read());
 
-         sleep(500000);
-         printf("Sending clear signal to pin 18 \r\n");
-      if((clear_gpio_sig(&pin_set[18])) == -1) /*Clear the signal form pin 18*/
-           return (-1);
+          //sleep(500000);
+
+          // printf("Sending Light signal to pin 18 \r\n");
+          // if((send_gpio_sig(&pin_set[18])) == -1) /*Send a 3.3v signal to pin 18*/
+             //   return (-1);
+
+        // sleep(500000);
+        // printf("Sending clear signal to pin 18 \r\n");
+         //if((clear_gpio_sig(&pin_set[18])) == -1) /*Clear the signal form pin 18*/
+         // return (-1);
     }
 
     return (0);

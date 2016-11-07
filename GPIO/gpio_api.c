@@ -130,7 +130,7 @@ void init_uart_pins(struct gpio_pin *txd_pin, struct gpio_pin *rxd_pin)
 
      *(txd_pin->gpio_pupdown) = 0;
     for( i=0; i<150; i++ ) { }
-     *(txd_pin->gpio_up_dn_clk) |= ( 1 << 14);
+     *(txd_pin->gpio_up_dn_clk) = ( 1 << 14) | (1 << 15); /**Writes 11 to pin 14 this will enable pin 14 and 15 */
     for( i=0; i<150; i++ ) { }
 
      *(txd_pin->gpio_pupdown)= 0;

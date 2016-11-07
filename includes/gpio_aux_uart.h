@@ -88,6 +88,7 @@ struct gpio_uart{
 extern struct gpio_uart* RPI_GetAux( void );
 extern void mini_uart_init( int baud, int bits);
 extern void mini_uart_write( char c );
+extern unsigned int mini_uart_read(void);
 
 
 

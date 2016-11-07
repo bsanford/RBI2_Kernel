@@ -1,4 +1,7 @@
+#include<stdio.h>
+
 #include "gpio_aux_uart.h"
+
 #define SYS_FREQ 250000000
 
 /*Function returns the singleton UART base address from the broadcom
@@ -13,7 +16,7 @@ struct gpio_uart* RPI_GetAux( void )
 
 
 
-/* Function was used from www.valvers.com baremetal tutorials Part5 graphics progoramming. I
+/** Function was used from www.valvers.com baremetal tutorials Part5 graphics progoramming. I
    used this to integrate into my implmentation of GPIO interface.
    Define the system clock frequency in MHz for the baud rate calculation.
    This is clearly defined on the BCM2835 datasheet errata page:
@@ -54,21 +57,34 @@ void mini_uart_init(int baud, int bits)
        manual */
     aux_uart->MU_BAUD = ( (SYS_FREQ / ( 8 * baud )) ) - 1;
     /* Disable flow control,enable transmitter and receiver! */
-    aux_uart->MU_CNTL = AUX_MUCNTL_TX_ENABLE;
+    aux_uart->MU_CNTL = (AUX_MUCNTL_RX_ENABLE | AUX_MUCNTL_TX_ENABLE);
 }
 
 
 
 
 
-/*Function RPI AuxMiniUartWrite was used from www.valvers.com baremetal tutorials
+/** Function RPI AuxMiniUartWrite was used from www.valvers.com baremetal tutorials
   part5*/
 void mini_uart_write( char c )
 {
+
     //struct gpio_uart *auxillary = RPI_GetAux();
     /* Wait until the UART has an empty space in the FIFO */
     while( ((aux_uart->MU_LSR) & AUX_MULSR_TX_EMPTY)  == 0 ) { }
 
     /* Write the character to the FIFO for transmission */
     aux_uart->MU_IO = c;
+}
+
+
+/** Do I integrate with read or make my own read implmenetation **/
+
+unsigned int  mini_uart_read(void){
+
+
+        while( ((aux_uart->MU_LSR) & AUX_MULSR_DATA_READY)  == 0 ){
+       }
+        printf("Recieved character %c \r \n", (char) aux_uart->MU_IO);
+       return (volatile int) aux_uart->MU_IO;
 }

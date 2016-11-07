@@ -176,6 +176,7 @@ int open( const char *name, int flags, int mode )
 /* Read from a file. Minimal implementation: */
 int _read( int file, char *ptr, int len )
 {
+
     return 0;
 }
 
