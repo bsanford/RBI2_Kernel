@@ -80,11 +80,11 @@ void mini_uart_write( char c )
 
 /** Do I integrate with read or make my own read implmenetation **/
 
-unsigned int  mini_uart_read(void){
+unsigned char  mini_uart_read(void){
 
 
         while( ((aux_uart->MU_LSR) & AUX_MULSR_DATA_READY)  == 0 ){
        }
-        printf("Recieved character %c \r \n", (char) aux_uart->MU_IO);
-       return (volatile int) aux_uart->MU_IO;
+
+       return  aux_uart->MU_IO;
 }

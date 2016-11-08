@@ -6,7 +6,8 @@
 #include "sys_time.h"
 #include "gpio_aux_uart.h"
 
-
+#define PIN18_ON "GPIO_18_ON"
+#define PIN18_OFF "GPIO_18_OFF";
 
 
 /*Test the gpio functionality using the api */
@@ -22,6 +23,26 @@ void sleep(uint32_t micros){
 }
 
 
+/**Buffered Read for the UART **/
+void uart_buff_read(char *ptr, int len){
+
+char uart_read;
+int read_ttl;
+
+for(read_ttl = 0; read_ttl < (len - 3); read_ttl++){
+    uart_read =  mini_uart_read();
+    ptr[read_ttl] = uart_read;
+
+
+}
+
+   ptr[len -3] = '\r';
+   ptr[len -2] = '\n';
+   ptr[len -1] = '\0';
+}
+
+
+
 
 /*Function gpio_test
  *
@@ -34,6 +55,8 @@ void sleep(uint32_t micros){
 int gpio_test(struct gpio_pin *pins, int size)
 {
 
+    char buffer[100];
+    int len = 100;
 
        //Initialize the Uart for reading and writing;
 
@@ -50,8 +73,14 @@ int gpio_test(struct gpio_pin *pins, int size)
 
         while(1)
     {
+        printf("Reading into buffer \r \n");
+        uart_buff_read(buffer, len);
 
-        mini_uart_write(mini_uart_read());
+        printf("Writing buffer contents to UART \r\n");
+
+        printf("%s", buffer);
+
+        //mini_uart_write(mini_uart_read());
 
           //sleep(500000);
 
