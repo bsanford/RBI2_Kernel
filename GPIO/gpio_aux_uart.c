@@ -66,8 +66,7 @@ void mini_uart_init(int baud, int bits)
 
 /** Function RPI AuxMiniUartWrite was used from www.valvers.com baremetal tutorials
   part5*/
-void mini_uart_write( char c )
-{
+void mini_uart_write( char c ){
 
     //struct gpio_uart *auxillary = RPI_GetAux();
     /* Wait until the UART has an empty space in the FIFO */
@@ -78,7 +77,7 @@ void mini_uart_write( char c )
 }
 
 
-/** Do I integrate with read or make my own read implmenetation **/
+
 
 unsigned char  mini_uart_read(void){
 
@@ -88,3 +87,35 @@ unsigned char  mini_uart_read(void){
 
        return  aux_uart->MU_IO;
 }
+
+
+
+
+/**Function uart_buff_read
+ * @ptr - The pointer to the the start address of the buffer
+ * @len - The length of the buffer
+ * @delim - if the delimeter is found then the read buffer will return
+ *          function does not include the delim in the returned buffer.
+ *
+ *  While the buffer is less then its length will try and read a character from
+ *  the Uart recieve buffer. The uart read will block until there is a character available
+ *  from the recieve buffer.
+ */
+void uart_buff_read(char *ptr, int len, char delim){
+
+    char uart_read;
+    int read_ttl;
+
+    for(read_ttl = 0; read_ttl < (len - 3); read_ttl++){
+        uart_read =  mini_uart_read();
+        if(delim == uart_read) /**We have recieved the terminator stop **/
+            break;
+
+        ptr[read_ttl] = uart_read;
+    }
+
+}
+
+
+
+
