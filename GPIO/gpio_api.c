@@ -8,32 +8,41 @@
 
 
 
-/*Function: send_gpio_sig
- * GIven a GPIO pin structure the function will
- * write a one to the GPIO out register
+/**Function: send_gpio_sig
+ *
+ *
  */
 int send_gpio_sig(struct gpio_pin *pin){
+
+   volatile unsigned int tmp_reg_val = 0;
 
     if(pin == NULL)
         return (-1);
 
-    *(pin->gpio_out_reg) = (1 << (pin->p_nmb));
+    tmp_reg_val |= 1 << (pin->p_nmb);
+
+    *(pin->gpio_out_reg) = tmp_reg_val;
 
     return (0);
 }
 
 
 
-/*Function: clear_gpio_sig
+/**Function: clear_gpio_sig
  *Given a GPIO pin structure the function will
  *write a one to its location in the the clear
  *register
  */
 int clear_gpio_sig(struct gpio_pin *pin){
+
+  volatile unsigned int tmp_reg_val = 0;
+
     if(pin == NULL)
         return (-1);
 
-     *(pin->gpio_clr_reg) = (1 << (pin->p_nmb));
+     tmp_reg_val |= 1 << (pin->p_nmb);
+
+     *(pin->gpio_clr_reg) = tmp_reg_val;
      return (0);
 
 }
