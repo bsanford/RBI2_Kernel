@@ -84,11 +84,14 @@ struct gpio_uart{
     };
 
 
-/*Maybe these should go to api functions*/
+
+
+
 extern struct gpio_uart* RPI_GetAux( void );
 extern void mini_uart_init( int baud, int bits);
 extern void mini_uart_write( char c );
 extern unsigned char mini_uart_read(void);
+extern void uart_buff_read(char *ptr, int len, char delim);
 
 
 
