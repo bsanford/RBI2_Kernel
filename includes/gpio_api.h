@@ -1,6 +1,7 @@
 #ifndef GPIO_API_H_INCLUDED
 #define GPIO_API_H_INCLUDED
 #include "gpio.h"
+#include "gpio_aux_uart.h"
 
 
 

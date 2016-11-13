@@ -58,16 +58,9 @@ int gpio_test(struct gpio_pin *pins, int size)
 
     char buffer[30];
     int len = 30;
-
        //Initialize the Uart for reading and writing;
 
-    init_uart_pins(&pins[14], &pins[15]);
-
-     mini_uart_init(115200, 8);
-
-      printf("HELLO \r \n");
-      printf("HELLO \r \n");
-      printf("Welcome to the GPIO controller Interface \r\n");
+    printf("Welcome to the GPIO controller Interface \r\n");
 
 
     while(1)
