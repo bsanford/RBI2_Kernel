@@ -7,7 +7,7 @@
   >Kernel will initialize the the GPIO peripheral, intialize the UART pins (14 and 15) for reiceve and transmit with no CTS, RTS.
 	The system will except commands from a serial connection attached through the mini_uart.
 	
-	For example;  GPIO_PIN18_ON sent through the UART will initialize GPIO PIN 18 so that it can be set to a HIGH/LO signal
+	For example  GPIO_PIN18_ON sent through the UART will initialize GPIO PIN 18 so that it can be set to a HIGH/LO signal
 			the call will then set that PIN to a HIGH value on the rail
 		      GPIO_PIN18_OFF will clear the signal and set the signal on the rail to LO;
 
