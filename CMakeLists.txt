@@ -56,7 +56,8 @@ add_executable( armc-kernel
     INTERRUPTS/rpi-interrupts.c
     SYS/sys_clock.c
     SYS/rpi-armtimer.c
-    SYS/clib.c )
+    SYS/clib.c
+    USER/user_cntrl.c)
 
 
 include_directories($(PROJECT_SOURCE_DIR)/includes)

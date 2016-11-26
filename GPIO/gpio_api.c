@@ -1,10 +1,61 @@
 #include <stddef.h>
+#include <stdio.h>
 #include "gpio_api.h"
 
 /*Contains system driver api featrues that are supported by this Kernel*/
 
 /*TODO get a JTAG interface working */
 
+
+void init_jtag(void){
+
+
+
+}
+
+
+/** Function set_gpio_pin_on
+ *
+ *  Sets the signal and waits for the
+ *  appropriate period of time for the hardware
+ *  change to take effect (150 cycles)
+ */
+
+void set_gpio_pin_on(struct gpio_pin *pin){
+
+   volatile int count;
+
+    if(set_gpio_fnct(pin, OUTPUT) == -1){
+        printf("ERROR - could not set pin as output \n \r");
+    }
+
+    for(count = 0; count < 150; count++);
+
+    send_gpio_sig(pin);
+
+}
+
+
+
+
+/** Function set_gpio_pin_off
+ *  waits 150 cycles and clears the pin
+ *  150 cycles is required by the hardware for
+ *  the change to take effect.
+ *
+ *  Always wait 150 cycles in case it is turned on and
+ *  then immediatly turned off again.
+ */
+
+void set_gpio_pin_off(struct gpio_pin *pin){
+
+    volatile int count;
+
+    for(count = 0; count < 150; count++);
+
+    clear_gpio_sig(pin);
+
+}
 
 
 

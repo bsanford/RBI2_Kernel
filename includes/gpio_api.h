@@ -4,6 +4,9 @@
 #include "gpio_aux_uart.h"
 
 
+extern void set_gpio_pin_on(struct gpio_pin *pin);
+
+extern void set_gpio_pin_off(struct gpio_pin *pin);
 
 extern int set_gpio_fnct(struct gpio_pin *pin, int pin_fnc); /*Sets the function type on the stored function select register*/
 

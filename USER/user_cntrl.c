@@ -70,7 +70,7 @@ void gpio_sys(struct gpio_pin *pins, int size){
 
           if(str_match(buffer, len, PIN23_ON, 10)){
            printf("Setting GPIO Pin 23 to on \r \n");
-           set_gpio_pin_off(&pins[23]);
+           set_gpio_pin_on(&pins[23]);
            continue;
         }
 
@@ -84,7 +84,7 @@ void gpio_sys(struct gpio_pin *pins, int size){
 
          if (str_match(buffer, len, PIN20_OFF, 11 )){
             printf("Clearning 3.3v signal from pin 20 \r \n");
-            set_gpio_pin_off(&pins[18]);
+            set_gpio_pin_off(&pins[20]);
             continue;
         }
 

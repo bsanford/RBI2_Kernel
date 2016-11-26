@@ -17,6 +17,7 @@
 
 
 /**Naive string matching algorithm to check for a command**/
+/*
 bool str_match(char *buffer, int buf_len, char *match_string, int mtch_len){
 
 int index;
@@ -28,10 +29,10 @@ for(index = 0; index < mtch_len; index++){
   return true;
 
 }
-/*Test the gpio functionality using the api */
 
 
-/*Test function to use the system clock*/
+
+
 void sleep(uint32_t micros){
 
   volatile uint32_t curr = (get_sys_clock()->lo_32bits);
@@ -39,7 +40,7 @@ void sleep(uint32_t micros){
   while((get_sys_clock()->lo_32bits - curr) < micros);
 
 }
-
+*/
 
 
 
@@ -56,96 +57,6 @@ void sleep(uint32_t micros){
 int gpio_test(struct gpio_pin *pins, int size)
 {
 
-    char buffer[30];
-    int len = 30;
-       //Initialize the Uart for reading and writing;
-
-    printf("Welcome to the GPIO controller Interface \r\n");
-
-
-    while(1)
-    {
-        printf("Please Enter a command-> \r \n");
-        uart_buff_read(buffer, len, ';');
-        printf("Parsing Command \r\n");
-
-
-        if(str_match(buffer, len, PIN18_ON, 10)){
-           printf("Setting GPIO Pin 18 to on \r \n");
-           set_gpio_fnct(&pins[18], OUTPUT);
-          // set_gpio_fnct(&pins[20], OUTPUT);
-          // set_gpio_fnct(&pins[23], OUTPUT);
-           sleep(500000);
-
-           printf("Sending 3.3V signal to GPIO 18 \r \n");
-           send_gpio_sig(&pin_set[18]);
-           //send_gpio_sig(&pin_set[20]);
-           //send_gpio_sig(&pin_set[23]);
-           continue;
-        }
-
-
-
-          if(str_match(buffer, len, PIN20_ON, 10)){
-          printf("Command -> %s received \r \n", buffer);
-
-           printf("Setting GPIO Pin 20 to on \r \n");
-           set_gpio_fnct(&pins[20], OUTPUT);
-          // set_gpio_fnct(&pins[20], OUTPUT);
-          // set_gpio_fnct(&pins[23], OUTPUT);
-           sleep(500000);
-
-           printf("Sending 3.3V signal to GPIO 20 \r \n");
-           send_gpio_sig(&pin_set[20]);
-           continue;
-        }
-
-
-          if(str_match(buffer, len, PIN23_ON, 10)){
-          printf("Command -> %s received \r \n", buffer);
-
-           printf("Setting GPIO Pin 23 to on \r \n");
-           set_gpio_fnct(&pins[23], OUTPUT);
-          // set_gpio_fnct(&pins[20], OUTPUT);
-          // set_gpio_fnct(&pins[23], OUTPUT);
-           sleep(500000);
-
-           printf("Sending 3.3V signal to GPIO 23 \r \n");
-           send_gpio_sig(&pin_set[23]);
-           continue;
-        }
-
-
-
-        if (str_match(buffer, len, PIN18_OFF, 11 )){
-            printf("Command -> %s received \r \n", buffer);
-
-            printf("Clearning 3.3v signal from pin 18 \r \n");
-            sleep(500000);
-            clear_gpio_sig(&pin_set[18]);
-            continue;
-        }
-
-
-         if (str_match(buffer, len, PIN20_OFF, 11 )){
-            printf("Command -> %s received \r \n", buffer);
-
-            printf("Clearning 3.3v signal from pin 20 \r \n");
-            sleep(500000);
-            clear_gpio_sig(&pin_set[20]);
-            continue;
-        }
-
-        if (str_match(buffer, len, PIN23_OFF, 11 )){
-            printf("Command -> %s received \r \n", buffer);
-
-            printf("Clearning 3.3v signal from pin 23 \r \n");
-            sleep(500000);
-            clear_gpio_sig(&pin_set[23]);
-            continue;
-        }
-
-         printf("Unkonwn command -> %s \r \n", buffer);
 
 
         //mini_uart_write(mini_uart_read());
@@ -160,7 +71,6 @@ int gpio_test(struct gpio_pin *pins, int size)
        //  printf("Sending clear signal to pin 18 \r\n");
          //if((clear_gpio_sig(&pin_set[18])) == -1) /*Clear the signal form pin 18*/
           //return (-1);
-    }
 
     return (0);
 }

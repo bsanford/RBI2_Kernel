@@ -1,5 +1,6 @@
 #include "gpio_api.h"
-#include "gpio_test.h"
+#include "user_cntrl.h"
+
 
 
 
@@ -23,11 +24,14 @@ void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
      mini_uart_init(115200, 8);
 
     /*Initialize the gpio pins based on location and*/
-    if((gpio_test(pin_set, PIN_SET_SIZE)) == -1)
+   // if((gpio_test(pin_set, PIN_SET_SIZE)) == -1)
+
+      gpio_sys(pin_set, PIN_SET_SIZE);
+
         while(1); //trap for now
 
 
-        while(1);
+        while(1); /**Can't exit from here we have nothing to exit too **/
 
 
 }

@@ -25,11 +25,11 @@
 #define GPIO_GPFSEL5    5
 
 
-#define GPIO_GPCLR0     7
-#define GPIO_GPCLR1     8
+#define GPIO_GPSET0     7
+#define GPIO_GPSET1     8
 
-#define GPIO_GPSET0     10
-#define GPIO_GPSET1     11
+#define GPIO_GPCLR0     10
+#define GPIO_GPCLR1     11
 
 #define GPIO_GPLEV0     13
 #define GPIO_GPLEV1     14
