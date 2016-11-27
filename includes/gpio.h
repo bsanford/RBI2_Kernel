@@ -105,7 +105,7 @@
     volatile unsigned int *gpio_lvl_reg; /*Register_to_detect the pin lvl;*/
     volatile unsigned int *gpio_up_dn_clk; /* Register for gpio clock signal */
     volatile unsigned int*gpio_pupdown; /*Register to control the GPIO pull up down*/
-    struct mutex hw_lock;            /*mutex lock*/
+    struct mutex hw_lock;           /*mutex lock*/
 };
 
 

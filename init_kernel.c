@@ -27,8 +27,7 @@ void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
    // if((gpio_test(pin_set, PIN_SET_SIZE)) == -1)
 
       gpio_sys(pin_set, PIN_SET_SIZE);
-
-        while(1); //trap for now
+         //trap for now
 
 
         while(1); /**Can't exit from here we have nothing to exit too **/

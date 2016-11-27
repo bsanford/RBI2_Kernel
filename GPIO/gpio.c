@@ -27,7 +27,7 @@ for(index = 0; index < size; index++){
 
      (pin_arr + index)->p_nmb = index;
 
-     init_lock(&(pin_arr + index)->hw_lock); /*address of the hwlock at that index */
+     init_lock(&((pin_arr + index)->hw_lock)); /*address of the hwlock at that index */
 
      if((init_fnc_slct(pin_arr + index)) == -1)
           return (-1);
