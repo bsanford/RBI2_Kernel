@@ -4,27 +4,31 @@
 
 
 
-void init_lock(void){
+char init_lock(struct mutex *self){
 
-
-
-}
-
-
-
-
-void set_mutex_lock(void){
-
-
+  self->locked = 0;
+  return self->locked;
 
 }
 
 
 
 
-void remove_mutex_lock(void){
+char set_mutex_lock(struct mutex *self){
+
+  self->locked = 1;
+  return self->locked;
+
+}
 
 
+
+
+char rmv_mutex_lock(struct mutex *self){
+
+  self->locked = 0;
+
+  return self->locked;
 
 }
 
