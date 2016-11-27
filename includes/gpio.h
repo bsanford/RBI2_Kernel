@@ -1,4 +1,5 @@
-/*Modified from valvers.com tutorials
+#include "mutex.h"
+/**Modified from valvers.com tutorials
 *
 * Location offsets for the Broadcom BCM2836
 * ARM peripheral.
@@ -59,7 +60,7 @@
 #define GPIO_GPPUDCLK0  38
 #define GPIO_GPPUDCLK1  39
 
-/*Defines for the function GPIO function select mask
+/**Defines for the function GPIO function select mask
 *000 = GPIO Pin is an input
  001 = GPIO Pin is an output
  100 = GPIO Pin alternative funct 0
@@ -89,7 +90,7 @@
 
 
 
-/*Structure will hold the GPIO Pin data
+/**Structure will hold the GPIO Pin data
   such that each pin object can be initialized
   in a 52 element array. Each pin will be able to be locked
   and set up for each type of usage as specified in the
@@ -104,7 +105,7 @@
     volatile unsigned int *gpio_lvl_reg; /*Register_to_detect the pin lvl;*/
     volatile unsigned int *gpio_up_dn_clk; /* Register for gpio clock signal */
     volatile unsigned int*gpio_pupdown; /*Register to control the GPIO pull up down*/
-    unsigned int mtex;             /*mutex lock*/
+    struct mutex hw_lock;            /*mutex lock*/
 };
 
 

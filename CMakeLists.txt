@@ -57,7 +57,8 @@ add_executable( armc-kernel
     SYS/sys_clock.c
     SYS/rpi-armtimer.c
     SYS/clib.c
-    USER/user_cntrl.c)
+    USER/user_cntrl.c
+    MMU/mutex.c)
 
 
 include_directories($(PROJECT_SOURCE_DIR)/includes)
