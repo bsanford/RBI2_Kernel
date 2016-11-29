@@ -1,6 +1,6 @@
-# Embedded System with Design Patterns
+#  Design Patterns on an Embedded System
 
-  >A baremetal system implementation with OO style desing patterns for the Raspberry PI 2 hardware.
+  >A baremetal system implementation targeting Software design patterns for the Raspberry PI 2 hardware.
 
 **Design Patterns**
    >Facade: 
