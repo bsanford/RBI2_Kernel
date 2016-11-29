@@ -186,17 +186,20 @@ int set_gpio_fnct(struct gpio_pin *pin, int pin_fnc)
 
 }
 
-/*Function Initializes the Mini Uart for Read and Write
+/**Function Initializes the Mini Uart for Read and Write
  * The BCM2836 manual states that you must set the pull up reg to 0
  * then must wait for 150 cycles for the setting to take. Then set a one to the
  * pull up pull down clock to initialize the pin.
- *
  */
+
 void init_uart_pins(struct gpio_pin *txd_pin, struct gpio_pin *rxd_pin)
 {
     volatile int i;
+
     set_gpio_fnct(txd_pin, ALTFIVE);
     set_gpio_fnct(rxd_pin, ALTFIVE);
+    txd_pin->hw_lock.set_mutex_lock(&(txd_pin->hw_lock));
+    txd_pin->hw_lock.set_mutex_lock(&(rxd_pin->hw_lock));
 
      *(txd_pin->gpio_pupdown) = 0;
     for( i=0; i<150; i++ ) { }
