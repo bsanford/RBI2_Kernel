@@ -2,6 +2,6 @@
 #define USER_CNTRL_H_INCLUDED
 #include "gpio_api.h"
 
-void gpio_sys(struct gpio_pin *pins, int size);
+void gpio_sys(void);
 
 #endif // USER_CNTRL_H_INCLUDED

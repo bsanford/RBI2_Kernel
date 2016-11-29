@@ -1,10 +1,21 @@
 #include <stddef.h>
 #include <stdio.h>
 #include "gpio_api.h"
+#include "gpio_aux_uart.h"
 
 /*Contains system driver api featrues that are supported by this Kernel*/
 
 /*TODO get a JTAG interface working */
+static struct gpio_api_funcs gpio;
+void set_gpio_pin_on(struct gpio_pin *pin);
+void set_gpio_pin_off(struct gpio_pin *pin);
+int send_gpio_sig(struct gpio_pin *pin);
+int clear_gpio_sig(struct gpio_pin *pin);
+int set_fncslct_reg(struct gpio_pin *pin, int pin_func, int reg_local);
+int set_gpio_fnct(struct gpio_pin *pin, int pin_fnc);
+void init_uart_pins(struct gpio_pin *txd_pin, struct gpio_pin *rxd_pin);
+
+
 
 
 void init_jtag(void){
@@ -114,8 +125,7 @@ int clear_gpio_sig(struct gpio_pin *pin){
  *This is used so the registers don't get clobbered when
  *ORing in different function selects.
  */
-int set_fncslct_reg(struct gpio_pin *pin, int pin_func, int reg_local)
-{
+int set_fncslct_reg(struct gpio_pin *pin, int pin_func, int reg_local){
     int fsel_copy = *(pin->fnc_slt);
     fsel_copy &= ~(7 << reg_local);
     fsel_copy |= (pin_func << reg_local);
@@ -130,8 +140,8 @@ int set_fncslct_reg(struct gpio_pin *pin, int pin_func, int reg_local)
  *
  */
 
-int set_gpio_fnct(struct gpio_pin *pin, int pin_fnc)
-{
+int set_gpio_fnct(struct gpio_pin *pin, int pin_fnc){
+
    int fun_reg_bits;
    if(pin == NULL)
         return -1;
@@ -214,6 +224,27 @@ void init_uart_pins(struct gpio_pin *txd_pin, struct gpio_pin *rxd_pin)
 }
 
 
+
+
+/**Function init_gpio_api
+  *
+  *Initializes the GPIO facade for the system
+  *In this way all of the functions necessary for the GPIO
+  *are embedded in the gpio_api_funcs structucture and can
+  *be accessed by returning the singleton address;
+  */
+
+
+struct gpio_api_funcs *init_gpio_api_funcs(void){
+gpio.init_uart_pins = &init_uart_pins;
+gpio.set_gpio_fnct = &set_gpio_fnct;
+gpio.set_gpio_pin_off = &set_gpio_pin_off;
+gpio.set_gpio_pin_on = &set_gpio_pin_on;
+gpio.init_gpio = &init_gpio;
+gpio.mini_uart_init = &mini_uart_init;
+gpio.uart_buff_read = &uart_buff_read;
+return &gpio;
+}
 
 
 

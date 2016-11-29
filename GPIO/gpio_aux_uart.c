@@ -9,6 +9,7 @@
 */
 
 static struct gpio_uart  *aux_uart  = (struct gpio_uart*) AUX_BASE;
+
 struct gpio_uart* RPI_GetAux( void )
 {
     return aux_uart;

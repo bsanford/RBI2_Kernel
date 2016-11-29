@@ -4,29 +4,28 @@
 #include "gpio_aux_uart.h"
 
 
-extern void set_gpio_pin_on(struct gpio_pin *pin);
+/**GPIO_API
+  *
+  *Facade Design Pattern in which all the
+  *api functions are accessed through.
+  *
+  *Call the init_gpio_api_func to get the address
+  *of the strucutre of pointers containing all the
+  *functions available to the GPIO sub system
+  */
 
-extern void set_gpio_pin_off(struct gpio_pin *pin);
 
-extern int set_gpio_fnct(struct gpio_pin *pin, int pin_fnc); /*Sets the function type on the stored function select register*/
+struct gpio_api_funcs{
 
-extern int set_gpio_input(struct gpio_pin *pin);
+void (* set_gpio_pin_on)  (struct gpio_pin *pin);
+void (* set_gpio_pin_off) (struct gpio_pin *pin);
+int  (* set_gpio_fnct) (struct gpio_pin *pin, int pin_fnc);
+void (* init_uart_pins) (struct gpio_pin *txd_pin, struct gpio_pin *rxd_pin);
+int  (* init_gpio )(struct gpio_pin *pin_arr, unsigned int size);
+void (* mini_uart_init)(int baud, int bits);
+void (* uart_buff_read)(char *ptr, int len, char delim);
+};
 
-extern int send_gpio_sig(struct gpio_pin *pin); /*Send 3.3v on the rail to the specified pin*/
 
-extern int clear_gpio_sig(struct gpio_pin *pin); /*Clear 3.3v off the rail to the specified pin*/
-
-extern void init_gpio_pins(struct gpio_pin txd_pin, struct gpio_pin rxd_pin);
-
-extern void init_uart_pins(struct gpio_pin *txd_pin, struct gpio_pin *rxd_pin);
-/*
-int get_signal(struct gpio_pin *pin);
-
-int is_gpio_lvl_hgh(struct gpio_pin *pin);
-
-int is_gpio_lvl_low(struct gpio_pin *pin);
-
-int set_mutex(struct gpio_pin *pin);
-*/
-
+extern struct gpio_api_funcs *init_gpio_api_funcs(void);
 #endif // GPIO_API_H_INCLUDED

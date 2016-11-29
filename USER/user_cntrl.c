@@ -5,8 +5,6 @@
 #include<stdbool.h>
 
 #include "gpio_api.h"
-#include "sys_time.h"
-#include "gpio_aux_uart.h"
 
 #define PIN18_ON "GPIO_18_ON"
 #define PIN18_OFF "GPIO_18_OFF"
@@ -39,14 +37,28 @@ for(index = 0; index < mtch_len; index++){
  *  command recieved by the uart
  *
  * Pre-conditions Uart must be initialized to send data or this will not work
- * correctly
+ * correctly.
+ *
+ * This function is basically some a test code that allows the system to interact with
+ * the GPIO facade.
  */
-void gpio_sys(struct gpio_pin *pins, int size){
+void gpio_sys(void){
+
+    struct gpio_api_funcs *user = init_gpio_api_funcs();
+
+    if((user->init_gpio(pin_set, PIN_SET_SIZE)) == -1)
+          while(1); //Trap this for now
+
+
+    user->init_uart_pins(&pin_set[14], &pin_set[15]); // Need to init the uart before the pins
+
+    user->mini_uart_init(115200, 8);
+
 
  char buffer[30];
  int len = 30;
        //Initialize the Uart for reading and writing;
-    printf("Welcome to the GPIO controller Interface \r\n");
+   printf("Welcome to the GPIO controller Interface \r\n");
 
 
 
@@ -57,41 +69,42 @@ void gpio_sys(struct gpio_pin *pins, int size){
 
         if(str_match(buffer, len, PIN18_ON, 10)){
            printf("Setting GPIO Pin 18 to on \r \n");
-           set_gpio_pin_on(&pins[18]);
+           //set_gpio_pin_on(&pins[18]);
+           user->set_gpio_pin_on(&pin_set[18]);
            continue;
         }
 
           if(str_match(buffer, len, PIN20_ON, 10)){
            printf("Setting GPIO Pin 20 to on \r \n");
-           set_gpio_pin_on(&pins[20]);
+           user->set_gpio_pin_on(&pin_set[20]);
            continue;
         }
 
 
           if(str_match(buffer, len, PIN23_ON, 10)){
            printf("Setting GPIO Pin 23 to on \r \n");
-           set_gpio_pin_on(&pins[23]);
+           user->set_gpio_pin_on(&pin_set[23]);
            continue;
         }
 
 
         if (str_match(buffer, len, PIN18_OFF, 11 )){
             printf("Clearning 3.3v signal from pin 18 \r \n");
-            set_gpio_pin_off(&pins[18]);
+            user->set_gpio_pin_off(&pin_set[18]);
             continue;
         }
 
 
          if (str_match(buffer, len, PIN20_OFF, 11 )){
             printf("Clearning 3.3v signal from pin 20 \r \n");
-            set_gpio_pin_off(&pins[20]);
+            user->set_gpio_pin_off(&pin_set[20]);
             continue;
         }
 
         if (str_match(buffer, len, PIN23_OFF, 11 )){
 
             printf("Clearning 3.3v signal from pin 23 \r \n");
-            set_gpio_pin_off(&pins[23]);
+            user->set_gpio_pin_off(&pin_set[23]);
             continue;
         }
 
