@@ -6,9 +6,9 @@
 struct mutex{
 
 volatile char locked;
-bool (* islocked)();
-void (* set_mutex_lock)();
-void (* rmv_mutex_lock)();
+bool (* islocked)(struct mutex *self);
+char (* set_mutex_lock)(struct mutex *self);
+char (* rmv_mutex_lock)(struct mutex *self);
 };
 
 

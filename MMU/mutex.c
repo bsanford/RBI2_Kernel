@@ -1,19 +1,6 @@
 #include "mutex.h"
 
 
-
-
-
-char init_lock(struct mutex *self){
-
-  self->locked = 0;
-  return self->locked;
-
-}
-
-
-
-
 char set_mutex_lock(struct mutex *self){
 
   self->locked = 1;
@@ -34,6 +21,7 @@ char rmv_mutex_lock(struct mutex *self){
 
 
 
+
 bool is_locked(struct mutex *self){
 
   if(self->locked == 1)
@@ -43,3 +31,14 @@ bool is_locked(struct mutex *self){
 }
 
 
+
+
+char init_lock(struct mutex *self){
+
+  self->locked = 0;
+  self->islocked = &is_locked;
+  self->rmv_mutex_lock = &rmv_mutex_lock;
+  self->set_mutex_lock = &set_mutex_lock;
+  return self->locked;
+
+}
