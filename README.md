@@ -13,8 +13,7 @@
 	     GPIO sub system with first be sent through the proxy, the proxy will determine if the the subsystem has been initialized and
 	     return the start address of the GPIO pin peripheral set.
 
-   >State:  
-	      The GPIO pin set structure has a mutex structure which controls the state of each pin. The pin is either in state locked or state unlocked.
+   >State:   The GPIO pin set structure has a mutex structure which controls the state of each pin. The pin is either in state locked or state unlocked.
 
 
    >Singleton: 
