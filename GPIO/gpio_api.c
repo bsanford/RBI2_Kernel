@@ -70,7 +70,8 @@ void set_gpio_pin_off(struct gpio_pin *pin){
 
 
 /**Function: send_gpio_sig
- *
+ * Create a 3.3v signal to the specfied RP5810
+ * signal.
  *
  */
 int send_gpio_sig(struct gpio_pin *pin){
@@ -109,7 +110,7 @@ int clear_gpio_sig(struct gpio_pin *pin){
 }
 
 
-/*Function set fncslct_reg
+/**Function: set fncslct_reg
  *This is used so the registers don't get clobbered when
  *ORing in different function selects.
  */
@@ -121,7 +122,7 @@ int set_fncslct_reg(struct gpio_pin *pin, int pin_func, int reg_local)
     return fsel_copy;
 }
 
-/*Function: set_gpio_fnct
+/**Function: set_gpio_fnct
  *Given a gpio_pin and its associated GPIO function
  *this will take the modulus of the pin number and which finds lower
  * order bits of its mapping in its function slelect location. Function

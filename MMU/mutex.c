@@ -1,6 +1,11 @@
 #include "mutex.h"
 
 
+/**Function set_mutex_lock
+ *
+ * set_mutex_lock - sets the lock
+ * on the specified mutex structure
+ */
 char set_mutex_lock(struct mutex *self){
 
   self->locked = 1;
@@ -9,7 +14,11 @@ char set_mutex_lock(struct mutex *self){
 }
 
 
-
+/**Function rmv_mutex_lock
+ *
+ * removes the lock on the specified
+ * lock structure
+ */
 
 char rmv_mutex_lock(struct mutex *self){
 
@@ -20,7 +29,11 @@ char rmv_mutex_lock(struct mutex *self){
 }
 
 
-
+/** Function is_locked
+ *
+ *  Tests the lock structure for its
+ *  lock status
+ */
 
 bool is_locked(struct mutex *self){
 
@@ -31,7 +44,12 @@ bool is_locked(struct mutex *self){
 }
 
 
-
+/** Function: init_lock
+ *
+ *  passes lock structure to self and initializes
+ *  the addresses of the function pointers
+ *  and sets the initial lock value to 0
+ */
 
 char init_lock(struct mutex *self){
 
