@@ -1,4 +1,4 @@
-#  Software Design Patterns on Bare Metal Raspberry Pi2
+#   Raspberry Pi2 Embedded System with Design Patterns
 
   >A baremetal system implementation with OO style desing patterns
 
