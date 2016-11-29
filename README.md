@@ -1,6 +1,6 @@
-#   Raspberry Pi2 Embedded System with Design Patterns
+# Embedded System with Design Patterns
 
-  >A baremetal system implementation with OO style desing patterns
+  >A baremetal system implementation with OO style desing patterns for the Raspberry PI 2 hardware.
 
 **Design Patterns**
    >Facade: 
@@ -44,7 +44,7 @@
   I have been using codeblocks as an IDE which seems to work really well with the build system
 
 **Notes:**
-  >Much of this experiment/learning is based off the Bare Metal tutorials on www.valvers.com
+  >www.valvers.com has great tutorials on how ot set up the build system 
 
 
 **Goals:**
