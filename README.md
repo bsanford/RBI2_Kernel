@@ -2,7 +2,7 @@
 
   >A baremetal system implementation with OO style desing patterns
 
-**Design Patterns **
+**Design Patterns**
    >Facade: 
 	     The GPIO system api utilizes a facade so all entry to the GPIO sub system requires the use of the singleton API
 	     The api is a structure with a set of function pointers to all available sub system calls. There is a get api function call
