@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "gpio_api.h"
 #include "gpio_aux_uart.h"
+#include "init_proxy.h"
 
 /*Contains system driver api featrues that are supported by this Kernel*/
 
@@ -240,7 +241,7 @@ gpio.init_uart_pins = &init_uart_pins;
 gpio.set_gpio_fnct = &set_gpio_fnct;
 gpio.set_gpio_pin_off = &set_gpio_pin_off;
 gpio.set_gpio_pin_on = &set_gpio_pin_on;
-gpio.init_gpio = &init_gpio;
+gpio.init_gpio = &prxy_init;
 gpio.mini_uart_init = &mini_uart_init;
 gpio.uart_buff_read = &uart_buff_read;
 return &gpio;
