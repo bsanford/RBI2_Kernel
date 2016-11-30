@@ -3,8 +3,9 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
-
+#include "user_cntrl.h"
 #include "gpio_api.h"
+#include "sys_time.h"
 
 #define PIN18_ON "GPIO_18_ON"
 #define PIN18_OFF "GPIO_18_OFF"
@@ -14,7 +15,13 @@
 #define PIN23_OFF "GPIO_23_OFF"
 #define CHMAS     "MERRY_CMAS"
 
+void sleep(uint32_t micros){
 
+  volatile uint32_t curr = (get_sys_clock()->lo_32bits);
+
+  while((get_sys_clock()->lo_32bits - curr) < micros);
+
+}
 
 
 static bool str_match(char *buffer, int buf_len, char *match_string, int mtch_len){
@@ -28,6 +35,71 @@ for(index = 0; index < mtch_len; index++){
   return true;
 
 }
+
+
+
+
+void blink_led(struct gpio_api_funcs *user,  struct gpio_pin *pin){
+
+  user->set_gpio_pin_on(pin);
+
+  sleep(500000);
+
+  user->set_gpio_pin_off(pin);
+
+}
+
+
+
+
+
+
+
+/**
+ *
+ *
+ *
+ *
+ */
+void blink_leds(struct gpio_api_funcs *user, struct gpio_pin *pin1, struct gpio_pin *pin2, struct gpio_pin *pin3){
+blink_led(user, pin1);
+blink_led(user, pin2);
+blink_led(user, pin3);
+}
+
+
+
+
+
+
+
+void merry_xmas(struct gpio_api_funcs *user){
+
+int count = 0;
+
+struct gpio_pin *pin1 = user->itor.get_node_at_index(&(user->itor), 18);
+struct gpio_pin *pin2 = user->itor.get_node_at_index(&(user->itor), 20);
+struct gpio_pin *pin3 = user->itor.get_node_at_index(&(user->itor), 23);
+
+
+while (count < 150){
+
+blink_leds(user, pin1, pin2, pin3);
+blink_leds(user, pin2, pin1, pin3);
+blink_leds(user, pin1, pin3, pin2);
+blink_leds(user, pin2, pin3, pin1);
+blink_leds(user, pin3, pin1, pin2);
+blink_leds(user, pin3, pin2, pin1);
+
+count++;
+}
+
+}
+
+
+
+
+
 
 
 
@@ -106,6 +178,12 @@ void gpio_sys(void){
             printf("Clearning 3.3v signal from pin 23 \r \n");
             user->set_gpio_pin_off(user->itor.get_node_at_index(&(user->itor), 23));
             continue;
+        }
+
+        if(str_match(buffer, len, CHMAS, 10)){
+            printf("Happy Holidays! \r \n");
+            merry_xmas(user);
+
         }
 
          printf("Unkonwn command -> %s \r \n", buffer);
