@@ -107,14 +107,17 @@ void uart_buff_read(char *ptr, int len, char delim){
     char uart_read;
     int read_ttl;
 
-    for(read_ttl = 0; read_ttl < (len - 3); read_ttl++){
+    for(read_ttl = 0; read_ttl < (len - 1); read_ttl++){
         uart_read =  mini_uart_read();
-        if(delim == uart_read) /**We have recieved the terminator stop **/
-            break;
+        if(delim == uart_read){ /**We have recieved the terminator stop **/
+            ptr[read_ttl] = '\0';
+            return;
+        }
 
         ptr[read_ttl] = uart_read;
     }
-
+    ptr[read_ttl + 1] = '\0';
+    return;
 }
 
 
