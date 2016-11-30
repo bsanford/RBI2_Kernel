@@ -244,6 +244,7 @@ gpio.set_gpio_pin_on = &set_gpio_pin_on;
 gpio.init_gpio = &prxy_init;
 gpio.mini_uart_init = &mini_uart_init;
 gpio.uart_buff_read = &uart_buff_read;
+init_gpitor(&(gpio.itor), pin_set, PIN_SET_SIZE);
 return &gpio;
 }
 

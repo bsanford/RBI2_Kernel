@@ -29,16 +29,34 @@
 
 struct gpio_pin *get_next(struct gpio_itor *self){
 
-       struct gpio_pin *tmp = NULL;
+
        if(self->has_next(self)){
 
         self->cur_index++;
         self->cur_node++;
-        tmp = self->cur_node;
+        return self->cur_node;
        }
 
-       return tmp;
+       return NULL;
 }
+
+
+
+
+
+struct gpio_pin *get_node_at_index (struct gpio_itor *self, int index){
+
+    if(index <= self->nodes){
+        self->cur_index = index;
+        self->cur_node = self->first + index;
+        return self->cur_node;
+    }
+
+    return NULL;
+}
+
+
+
 
 
 void init_gpitor(struct gpio_itor *iterator, struct gpio_pin *pin_set, int size){
@@ -50,4 +68,5 @@ void init_gpitor(struct gpio_itor *iterator, struct gpio_pin *pin_set, int size)
     iterator->get_next = &get_next;
     iterator->has_next = &has_next;
     iterator->is_done = &is_done;
+    iterator->get_node_at_index = &get_node_at_index;
 }

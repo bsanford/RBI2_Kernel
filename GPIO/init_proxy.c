@@ -21,13 +21,13 @@ struct gpio_pin *gpio_pins = NULL;
 struct gpio_pin *prxy_init(void){
 
 if(gpio_pins == NULL){
-    printf("Initializing GPIO sub-system \r \n");
+    //printf("Initializing GPIO sub-system \r \n");
     init_gpio(pin_set, PIN_SET_SIZE);
     gpio_pins = pin_set;
     return gpio_pins;
     }
 
-    printf("Subsystem is already initialized, returning address %d \r \n", (int)gpio_pins);
+   // printf("Subsystem is already initialized, returning address %d \r \n", (int)gpio_pins);
 
   return gpio_pins;
 

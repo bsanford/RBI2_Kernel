@@ -2,6 +2,7 @@
 #define GPIO_API_H_INCLUDED
 #include "gpio.h"
 #include "gpio_aux_uart.h"
+#include "gpio_iterator.h"
 
 
 /**GPIO_API
@@ -21,9 +22,10 @@ void (* set_gpio_pin_on)  (struct gpio_pin *pin);
 void (* set_gpio_pin_off) (struct gpio_pin *pin);
 int  (* set_gpio_fnct) (struct gpio_pin *pin, int pin_fnc);
 void (* init_uart_pins) (struct gpio_pin *txd_pin, struct gpio_pin *rxd_pin);
-struct gpio_pin * (* init_gpio )(struct gpio_pin *pin_arr, unsigned int size); /*Need to consider this carefully*/
+struct gpio_pin * (* init_gpio )(void); /*Need to consider this carefully*/
 void (* mini_uart_init)(int baud, int bits);
 void (* uart_buff_read)(char *ptr, int len, char delim);
+struct gpio_itor itor;
 };
 
 

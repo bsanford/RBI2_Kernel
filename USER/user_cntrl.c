@@ -11,7 +11,8 @@
 #define PIN20_ON "GPIO_20_ON"
 #define PIN20_OFF "GPIO_20_OFF"
 #define PIN23_ON  "GPIO_23_ON"
-#define PIN23_OFF  "GPIO_23_OFF"
+#define PIN23_OFF "GPIO_23_OFF"
+#define CHMAS     "MERRY_CMAS"
 
 
 
@@ -31,8 +32,6 @@ for(index = 0; index < mtch_len; index++){
 
 
 
-
-
 /** gpio_sys calls that will execute
  *  different system calls for each
  *  command recieved by the uart
@@ -42,15 +41,17 @@ for(index = 0; index < mtch_len; index++){
  *
  * This function is basically some a test code that allows the system to interact with
  * the GPIO facade.
+ *
+ * Naive parser just to test different GPIO pins accepting commands from a UART and lighting LEDs
+ * on a bread board
  */
 void gpio_sys(void){
 
-    struct gpio_pin *user_app_pins;
     struct gpio_api_funcs *user = init_gpio_api_funcs();
 
-    user_app_pins = user->init_gpio(pin_set, PIN_SET_SIZE);
+    user->init_gpio();
 
-    user->init_uart_pins(&user_app_pins[14], &user_app_pins[15]); // Need to init the uart before the pins
+    user->init_uart_pins(user->itor.get_node_at_index(&(user->itor), 14), user->itor.get_node_at_index(&(user->itor), 15)); // Need to init the uart before the pins
 
     user->mini_uart_init(115200, 8);
 
@@ -69,41 +70,41 @@ void gpio_sys(void){
 
         if(str_match(buffer, len, PIN18_ON, 10)){
            printf("Setting GPIO Pin 18 to on \r \n");
-           user->set_gpio_pin_on(&user_app_pins[18]);
+           user->set_gpio_pin_on(user->itor.get_node_at_index(&(user->itor), 18));  //Uses the iterator in the GPIO API to access the pin
            continue;
         }
 
           if(str_match(buffer, len, PIN20_ON, 10)){
            printf("Setting GPIO Pin 20 to on \r \n");
-           user->set_gpio_pin_on(&user_app_pins[20]);
+           user->set_gpio_pin_on(user->itor.get_node_at_index(&(user->itor), 20));
            continue;
         }
 
 
           if(str_match(buffer, len, PIN23_ON, 10)){
            printf("Setting GPIO Pin 23 to on \r \n");
-           user->set_gpio_pin_on(&user_app_pins[23]);
+           user->set_gpio_pin_on(user->itor.get_node_at_index(&(user->itor), 23));
            continue;
         }
 
 
         if (str_match(buffer, len, PIN18_OFF, 11 )){
             printf("Clearning 3.3v signal from pin 18 \r \n");
-            user->set_gpio_pin_off(&user_app_pins[18]);
+            user->set_gpio_pin_off(user->itor.get_node_at_index(&(user->itor), 18));
             continue;
         }
 
 
          if (str_match(buffer, len, PIN20_OFF, 11 )){
             printf("Clearning 3.3v signal from pin 20 \r \n");
-            user->set_gpio_pin_off(&user_app_pins[20]);
+            user->set_gpio_pin_off(user->itor.get_node_at_index(&(user->itor), 20));
             continue;
         }
 
         if (str_match(buffer, len, PIN23_OFF, 11 )){
 
             printf("Clearning 3.3v signal from pin 23 \r \n");
-            user->set_gpio_pin_off(&user_app_pins[23]);
+            user->set_gpio_pin_off(user->itor.get_node_at_index(&(user->itor), 23));
             continue;
         }
 

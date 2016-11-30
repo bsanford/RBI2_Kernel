@@ -17,6 +17,8 @@ struct gpio_itor{
     struct gpio_pin *(* get_next)(struct gpio_itor *self);
     bool (* has_next)(struct gpio_itor *self);
     bool (* is_done) (struct gpio_itor *self);
+    struct gpio_pin *(*get_node_at_index)(struct gpio_itor *self, int index);
 };
 
+void init_gpitor(struct gpio_itor *iterator, struct gpio_pin *pin_set, int size);
 #endif // GPIO_ITERATOR_H_INCLUDED
