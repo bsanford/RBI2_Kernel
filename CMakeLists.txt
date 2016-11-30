@@ -53,6 +53,7 @@ add_executable( armc-kernel
     GPIO/gpio_api.c
     GPIO/gpio_aux_uart.c
     GPIO/init_proxy.c
+    GPIO/gpio_iterator.c
     TEST/gpio_test.c
     INTERRUPTS/rpi-interrupts.c
     SYS/sys_clock.c
