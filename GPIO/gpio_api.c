@@ -37,17 +37,17 @@ void set_gpio_pin_on(struct gpio_pin *pin){
 
    volatile int count;
 
-    printf("Setting Hardware Lock on PIN %d \n \r", pin->p_nmb);
+    printf("Setting Hardware Lock on PIN %d \r \n", pin->p_nmb);
 
     if(pin->hw_lock.islocked(&(pin->hw_lock))){
-        printf("ERROR- PIN %d IS CURRENTLY LOCKED ! \n \r", pin->p_nmb);
+        printf("ERROR- PIN %d IS CURRENTLY LOCKED ! \r \n", pin->p_nmb);
         return;
         }
 
      pin->hw_lock.set_mutex_lock(&(pin->hw_lock));
 
     if(set_gpio_fnct(pin, OUTPUT) == -1){
-        printf("ERROR - could not set pin as output \n \r");
+        printf("ERROR - could not set pin as output \r \n");
     }
 
     for(count = 0; count < 150; count++);

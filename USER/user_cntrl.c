@@ -131,12 +131,12 @@ void gpio_sys(void){
  char buffer[30];
  int len = 30;
        //Initialize the Uart for reading and writing;
-   printf("Welcome to the GPIO controller Interface \r\n");
+   printf("Welcome to the GPIO controller Interface \r \n");
 
 
 
  while(1){
-        printf("Please Enter a command-> \r \n");
+        printf("Please Enter a Command-> \r \n");
         uart_buff_read(buffer, len, ';');
         printf("Command -> %s received \r \n", buffer);
 
@@ -183,6 +183,7 @@ void gpio_sys(void){
         if(str_match(buffer, len, CHMAS, 10)){
             printf("Happy Holidays! \r \n");
             merry_xmas(user);
+            continue;
 
         }
 
