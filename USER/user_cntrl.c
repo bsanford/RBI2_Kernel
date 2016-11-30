@@ -82,7 +82,7 @@ struct gpio_pin *pin2 = user->itor.get_node_at_index(&(user->itor), 20);
 struct gpio_pin *pin3 = user->itor.get_node_at_index(&(user->itor), 23);
 
 
-while (count < 150){
+while (count < 10){
 
 blink_leds(user, pin1, pin2, pin3);
 blink_leds(user, pin2, pin1, pin3);
