@@ -3,14 +3,31 @@
 #include <stdbool.h>
 
 #include "rpi-armtimer.h"
-//#include "rpi-base.h"
-//#include "rpi-gpio.h"
 #include "rpi-interrupts.h"
 #include "gpio_api.h"
+
+/**TODO ----------
+  *
+  * The interrupt handler needs to be fixed.. I don't believe the address mapping in the assembler script
+  *  maps correctly to the Cortex Arm v7. I still have to go back and read the architecture manual for that
+  *  processor.
+  *
+  *
+  *There are two main features that I would like to add to the interrupt handler.
+  *    1.) Want to tie the reset vector to a GPIO line which contains a hardware switch
+  *         In this way, can reset the code with out having to constantly power down the
+  *         RBI2 hardware.
+  *
+  *    2.) Would like to define an error led on the bread board so when an error has occured the
+  *        the system will pull the iterrupt handler line and blink the LED error.
+  */
+
 
 /** @brief The BCM2835/6 Interupt controller peripheral at it's base address */
 static rpi_irq_controller_t* rpiIRQController =
         (rpi_irq_controller_t*)RPI_INTERRUPT_CONTROLLER_BASE;
+
+
 
 volatile int calculate_frame_count = 0;
 
