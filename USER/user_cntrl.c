@@ -24,6 +24,10 @@ void sleep(uint32_t micros){
 }
 
 
+
+
+/** Function str_match
+
 static bool str_match(char *buffer, int buf_len, char *match_string, int mtch_len){
 
 int index;
@@ -37,7 +41,13 @@ for(index = 0; index < mtch_len; index++){
 }
 
 
-
+/** blink_led
+ *
+ *  @user - structure to the gpio_api_funcs
+ *
+ *  @pin -  the gpio pin to send a high sig and then a low sig
+ *
+ */
 
 void blink_led(struct gpio_api_funcs *user,  struct gpio_pin *pin){
 
@@ -52,14 +62,17 @@ void blink_led(struct gpio_api_funcs *user,  struct gpio_pin *pin){
 
 
 
-
-
-
-/**
+/** Function blink_leds
  *
+ *  @user - pointer to the gpio_api_funcs
  *
+ *  @pin1 - pointer the gpio pin1
  *
+ *  @pin2 - pointer to the gpio pin2
  *
+ *  @pin3 - pointer to the gpio pin3
+ *
+ *  blink_leds will turn 3 pins on and off in consecutive order. Pin1 Pin2 Pin3.
  */
 void blink_leds(struct gpio_api_funcs *user, struct gpio_pin *pin1, struct gpio_pin *pin2, struct gpio_pin *pin3){
 blink_led(user, pin1);
@@ -72,7 +85,13 @@ blink_led(user, pin3);
 
 
 
-
+/**Function: merry_xmas
+  * @user - pointer to the gpio_api_funcs structure
+  *
+  * A function that sends a 3.3v signal to different gpio pins.
+  * this function assumes that the pins are hooked up to the
+  * an LED on the GPIO rail.
+  */
 void merry_xmas(struct gpio_api_funcs *user){
 
 int count = 0;
@@ -127,10 +146,11 @@ void gpio_sys(void){
 
     user->mini_uart_init(115200, 8);
 
-
- char buffer[30];
  int len = 30;
-       //Initialize the Uart for reading and writing;
+ char buffer[len]; /*Character buffer for the buffered read */
+
+       //Initialize the Uart for reading and writing;'
+   printf("\r \n");
    printf("Welcome to the GPIO controller Interface \r \n");
 
 

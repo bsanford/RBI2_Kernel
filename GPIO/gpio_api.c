@@ -1,8 +1,9 @@
 #include <stddef.h>
 #include <stdio.h>
 #include "gpio_api.h"
-#include "gpio_aux_uart.h"
 #include "init_proxy.h"
+
+
 
 /*Contains system driver api featrues that are supported by this Kernel*/
 
