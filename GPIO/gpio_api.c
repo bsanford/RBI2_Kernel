@@ -19,7 +19,10 @@ void init_uart_pins(struct gpio_pin *txd_pin, struct gpio_pin *rxd_pin);
 
 
 
-
+/** Function: Init JTAG
+    Initilizes the set of GPIO pins for use with a JTAG emulator. This requires
+    Additional hardware for the JTAG interface pins.
+*/
 void init_jtag(void){
 
 
