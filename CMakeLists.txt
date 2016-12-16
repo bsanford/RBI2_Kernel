@@ -60,7 +60,7 @@ add_executable( armc-kernel
     SYS/rpi-armtimer.c
     SYS/clib.c
     USER/user_cntrl.c
-    MMU/mutex.c)
+    MMU/mutex.c I2C.c)
 
 
 include_directories($(PROJECT_SOURCE_DIR)/includes)
