@@ -1,4 +1,3 @@
-#include <stddef.h>
 #include <stdio.h>
 #include "gpio_api.h"
 #include "init_proxy.h"
@@ -215,7 +214,7 @@ void init_uart_pins(struct gpio_pin *txd_pin, struct gpio_pin *rxd_pin)
     set_gpio_fnct(txd_pin, ALTFIVE);
     set_gpio_fnct(rxd_pin, ALTFIVE);
     txd_pin->hw_lock.set_mutex_lock(&(txd_pin->hw_lock));
-    txd_pin->hw_lock.set_mutex_lock(&(rxd_pin->hw_lock));
+    rxd_pin->hw_lock.set_mutex_lock(&(rxd_pin->hw_lock));
 
      *(txd_pin->gpio_pupdown) = 0;
     for( i=0; i<150; i++ ) { }
