@@ -10,6 +10,36 @@
 
 
 
+/** Function get_bsc0
+ * @brief  returns the static address of bsc_i2c structure BSC controller 0
+ *
+ * @return bsc_i2c_t *
+ */
+struct bsc_i2c_t * get_bsc0(void){
+
+  static struct bsc_i2c_t *bsc0 = (struct bsc_i2c_t *) (BSC0);
+  return bsc0;
+
+}
+
+
+/** Function get_bsc1
+ * @brief returns the static address of the bsc_i2C structure for BSC controller 1
+ * @return bsc_i2C_t *
+ */
+
+struct bsc_i2c_t * get_bsc1(void){
+
+  static struct bsc_i2c_t  *bsc1 = (struct bsc_i2c_t *) (BSC1);
+  return bsc1;
+
+}
+
+
+
+
+
+
 /**Function: set_clock_speed
  * @brief Sets the I2C clock speed
  *
