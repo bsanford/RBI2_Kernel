@@ -1,3 +1,4 @@
+#include "I2C.h"
 //
 // Created by bbot on 12/16/16.
 //
@@ -30,7 +31,7 @@ void set_clock_speed(void){
 
 short get_dlen(void) {
 
-
+  return 0;
 }
 
 
