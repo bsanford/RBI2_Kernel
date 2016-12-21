@@ -1,11 +1,10 @@
-#include "user_cntrl.h"
-#include<string.h>
 #include<stdio.h>
-#include<stdlib.h>
 #include<stdbool.h>
 #include "user_cntrl.h"
 #include "gpio_api.h"
 #include "sys_time.h"
+#include "rpi-interrupts.h"
+#include "rpi-armtimer.h"
 
 #define PIN18_ON "GPIO_18_ON"
 #define PIN18_OFF "GPIO_18_OFF"
@@ -23,11 +22,23 @@ void sleep(uint32_t micros){
 
 }
 
+/** Function blinky_blinky
+ * Just a test to prove the interrupts are working correctly
+ */
+void enable_timer_interrupts(void){
+    printf("Setting up Arm-Timer Interrupts \r \n");
+ RPI_GetIrqController()->Enable_Basic_IRQs = RPI_BASIC_ARM_TIMER_IRQ;
+    RPI_GetArmTimer()->Load = 0x400;
+    RPI_GetArmTimer()->Control =
+            RPI_ARMTIMER_CTRL_23BIT |
+            RPI_ARMTIMER_CTRL_ENABLE |
+            RPI_ARMTIMER_CTRL_INT_ENABLE |
+            RPI_ARMTIMER_CTRL_PRESCALE_256;
+
+    _enable_interrupts();
+}
 
 
-
-/** Function str_match
-  */
 
 static bool str_match(char *buffer, int buf_len, char *match_string, int mtch_len){
 
@@ -119,11 +130,6 @@ count++;
 
 
 
-
-
-
-
-
 /** gpio_sys calls that will execute
  *  different system calls for each
  *  command recieved by the uart
@@ -153,7 +159,6 @@ void gpio_sys(void){
        //Initialize the Uart for reading and writing;'
    printf("\r \n");
    printf("Welcome to the GPIO controller Interface \r \n");
-
 
 
  while(1){

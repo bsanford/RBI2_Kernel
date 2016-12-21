@@ -2,6 +2,7 @@
 #define USER_CNTRL_H_INCLUDED
 #include "gpio_api.h"
 
-void gpio_sys(void);
+extern void gpio_sys(void);
+
 
 #endif // USER_CNTRL_H_INCLUDED

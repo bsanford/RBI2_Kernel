@@ -1,35 +1,21 @@
 
-#include <stdint.h>
-#include <stdbool.h>
-
 #include "rpi-armtimer.h"
 #include "rpi-interrupts.h"
 #include "gpio_api.h"
-
-/**TODO ----------
-  *
-  * The interrupt handler needs to be fixed.. I don't believe the address mapping in the assembler script
-  *  maps correctly to the Cortex Arm v7. I still have to go back and read the architecture manual for that
-  *  processor.
-  *
-  *
-  *There are two main features that I would like to add to the interrupt handler.
-  *    1.) Want to tie the reset vector to a GPIO line which contains a hardware switch
-  *         In this way, can reset the code with out having to constantly power down the
-  *         RBI2 hardware.
-  *
-  *    2.) Would like to define an error led on the bread board so when an error has occured the
-  *        the system will pull the iterrupt handler line and blink the LED error.
-  */
-
+#include "user_cntrl.h"
 
 /** @brief The BCM2835/6 Interupt controller peripheral at it's base address */
 static rpi_irq_controller_t* rpiIRQController =
         (rpi_irq_controller_t*)RPI_INTERRUPT_CONTROLLER_BASE;
 
 
-
+/** Function RPI_GetIrqContorl
+ * @brief returns the register set of the Irq Controller
+ *
+ * @return rpi_irq_controller_t
+ */
 volatile int calculate_frame_count = 0;
+
 
 /**
     @brief Return the IRQ Controller register set
@@ -51,7 +37,7 @@ void __attribute__((interrupt("ABORT"))) reset_vector(void)
 {
     while( 1 )
     {
-        send_gpio_sig(&pin_set[18]);
+
     }
 }
 
@@ -66,7 +52,6 @@ void __attribute__((interrupt("UNDEF"))) undefined_instruction_vector(void)
     while( 1 )
     {
         /* Do Nothing! */
-       send_gpio_sig(&pin_set[18]);
     }
 }
 
@@ -81,8 +66,8 @@ void __attribute__((interrupt("SWI"))) software_interrupt_vector(void)
 {
     while( 1 )
     {
-        /* Do Nothing! */
-        send_gpio_sig(&pin_set[18]);
+
+
     }
 }
 
@@ -97,7 +82,6 @@ void __attribute__((interrupt("ABORT"))) prefetch_abort_vector(void)
 {
     while( 1 )
     {
-        send_gpio_sig(&pin_set[18]);
     }
 }
 
@@ -112,7 +96,6 @@ void __attribute__((interrupt("ABORT"))) data_abort_vector(void)
 {
     while( 1 )
     {
-        send_gpio_sig(&pin_set[18]);
     }
 }
 
@@ -127,24 +110,12 @@ void __attribute__((interrupt("ABORT"))) data_abort_vector(void)
 */
 void __attribute__((interrupt("IRQ"))) interrupt_vector(void)
 {
-    static int lit = 0;
        /* Clear the ARM Timer interrupt - it's the only interrupt we have
        enabled, so we want don't have to work out which interrupt source
        caused us to interrupt */
-    RPI_GetArmTimer()->IRQClear = 1;
+       while ( 1 ){
+       }
 
-
-    /* Flip the LED */
-    if( lit )
-    {
-        clear_gpio_sig(&pin_set[18]);
-        lit = 0;
-    }
-    else
-    {
-        send_gpio_sig(&pin_set[18]);
-        lit = 1;
-    }
 }
 
 

@@ -36,7 +36,7 @@
 
 /** @brief See the documentation for the ARM side timer (Section 14 of the
     BCM2835 Peripherals PDF) */
-#define RPI_ARMTIMER_BASE                0x3F00B400
+#define RPI_ARMTIMER_BASE                0x3F00B400UL
 
 /** @brief 0 : 16-bit counters - 1 : 23-bit counter */
 #define RPI_ARMTIMER_CTRL_23BIT         ( 1 << 1 )

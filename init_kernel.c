@@ -1,5 +1,5 @@
 #include "user_cntrl.h"
-
+#include "rpi-interrupts.h"
 
 
 
@@ -18,7 +18,7 @@ void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
 
 
 
-    /*Initialize the gpio pins based on location and*/
+        /*Initialize the gpio pins based on location and*/
    // if((gpio_test(pin_set, PIN_SET_SIZE)) == -1)
 
       gpio_sys();
