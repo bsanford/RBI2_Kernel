@@ -1,30 +1,69 @@
-
 #include "rpi-armtimer.h"
 #include "rpi-interrupts.h"
-#include "gpio_api.h"
 #include "user_cntrl.h"
+
+
+
+
+
+/**There is something still not working correctly with the interrupt handler
+ * The processor does not seem to be in the correct mode when the exception should be
+ * vectored to the exception handler. Vector table is correct and Interrupt handlers are
+ * mapped correctly. The interrupt controller on the peripheral is working as excpected as well.
+ * ---Using the function below I am able to see that CPSR value is 0x600001DA which puts the mode
+ *    bits in HYP mode. This is not as expected, my understanding is the processor would be in
+ *    SVC mode.
+ *    TODO - Research and understand what is happening with ARM processor modes and understand how and
+ *           when they change.
+ */
+
+
 
 /** @brief The BCM2835/6 Interupt controller peripheral at it's base address */
 static rpi_irq_controller_t* rpiIRQController =
         (rpi_irq_controller_t*)RPI_INTERRUPT_CONTROLLER_BASE;
 
 
-/** Function RPI_GetIrqContorl
- * @brief returns the register set of the Irq Controller
+
+/*TODO Needs to go into its own source file with other ARM inline assember functions */
+/** Function get_cpsr
  *
- * @return rpi_irq_controller_t
+ * @brief returns the ARM specific CPSR (current program status register)
+ *
+ * @note used to detect current processor modes and flags, see arm v7 architecture manual
+ *
+ * @return value stored in the cpsr reg
  */
-volatile int calculate_frame_count = 0;
+int get_cpsr(void){
+
+     unsigned int cpsr_reg;
+     __asm__ __volatile__("mrs %0, cpsr" : "=r" (cpsr_reg));
+     return cpsr_reg;
+}
 
 
-/**
+
+/**Function RPI_GetIrqController
     @brief Return the IRQ Controller register set
+
+    @return the pointer to the rpi_irq_controller_t structure
 */
 rpi_irq_controller_t* RPI_GetIrqController( void )
 {
     return rpiIRQController;
 }
 
+
+
+
+
+
+
+void __attribute__((interrupt("IRQ")))interrupt_vector(void)
+{
+    rpi_arm_timer_t *mytime  = RPI_GetArmTimer();
+    mytime->IRQClear = 1;
+}
 
 /**
     @brief The Reset vector interrupt handler
@@ -33,12 +72,7 @@ rpi_irq_controller_t* RPI_GetIrqController( void )
     GPU and therefore cause the GPU to start running code again until
     the ARM is handed control at the end of boot loading
 */
-void __attribute__((interrupt("ABORT"))) reset_vector(void)
-{
-    while( 1 )
-    {
-
-    }
+void __attribute__((interrupt("ABORT"))) reset_vector(void) {
 }
 
 /**
@@ -47,12 +81,7 @@ void __attribute__((interrupt("ABORT"))) reset_vector(void)
     If an undefined intstruction is encountered, the CPU will start
     executing this function. Just trap here as a debug solution.
 */
-void __attribute__((interrupt("UNDEF"))) undefined_instruction_vector(void)
-{
-    while( 1 )
-    {
-        /* Do Nothing! */
-    }
+void __attribute__((interrupt("UNDEF"))) undefined_instruction_vector(void) {
 }
 
 
@@ -62,13 +91,7 @@ void __attribute__((interrupt("UNDEF"))) undefined_instruction_vector(void)
     The CPU will start executing this function. Just trap here as a debug
     solution.
 */
-void __attribute__((interrupt("SWI"))) software_interrupt_vector(void)
-{
-    while( 1 )
-    {
-
-
-    }
+void __attribute__((interrupt("SWI"))) software_interrupt_vector(void) {
 }
 
 
@@ -80,9 +103,7 @@ void __attribute__((interrupt("SWI"))) software_interrupt_vector(void)
 */
 void __attribute__((interrupt("ABORT"))) prefetch_abort_vector(void)
 {
-    while( 1 )
-    {
-    }
+
 }
 
 
@@ -94,9 +115,7 @@ void __attribute__((interrupt("ABORT"))) prefetch_abort_vector(void)
 */
 void __attribute__((interrupt("ABORT"))) data_abort_vector(void)
 {
-    while( 1 )
-    {
-    }
+
 }
 
 
@@ -108,15 +127,7 @@ void __attribute__((interrupt("ABORT"))) data_abort_vector(void)
     importantly clear the interrupt flag so that the interrupt won't
     immediately put us back into the start of the handler again.
 */
-void __attribute__((interrupt("IRQ"))) interrupt_vector(void)
-{
-       /* Clear the ARM Timer interrupt - it's the only interrupt we have
-       enabled, so we want don't have to work out which interrupt source
-       caused us to interrupt */
-       while ( 1 ){
-       }
 
-}
 
 
 /**
@@ -144,7 +155,8 @@ void __attribute__((interrupt("IRQ"))) interrupt_vector(void)
     empty because the CPU has switched to a fresh set of registers and so has
     not altered the main set of registers.
 */
-void __attribute__((interrupt("FIQ"))) fast_interrupt_vector(void)
+void __attribute__((interrupt("FIQ")))fast_interrupt_vector(void)
 {
-
+    rpi_arm_timer_t *mytime  = RPI_GetArmTimer();
+    mytime->IRQClear = 1;
 }

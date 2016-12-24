@@ -70,7 +70,9 @@ typedef struct {
 extern volatile int calculate_frame_count;
 
 /* Found in the *start.S file, implemented in assembler */
+extern int get_cpsr(void);
 extern void _enable_interrupts( void );
 extern rpi_irq_controller_t* RPI_GetIrqController( void );
+extern void enable_interrupts(void);
 
 #endif
