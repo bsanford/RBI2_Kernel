@@ -32,11 +32,19 @@
         Kernel will initialize the the GPIO peripheral, intialize the UART pins (14 and 15) for reiceve and transmit with no CTS, RTS.
 	The system will except commands from a serial connection attached through the mini_uart.
 	
-	For example  GPIO_PIN18_ON sent through the UART will initialize GPIO PIN 18 so that it can be set to a HIGH/LO signal
-			the call will then set that PIN to a HIGH value on the rail
-		      GPIO_PIN18_OFF will clear the signal and set the signal on the rail to LO;
+	For example  GPIO_PIN18_ON; sent through the UART will initialize GPIO PIN 18 so that it can be set to a HIGH/LO signal
+			     the call will then set that PIN to a HIGH value on the rail
+		         GPIO_PIN18_OFF; will clear the signal and set the signal on the rail to LO;
+
+		         The parser recognizes ; as the delimiter or it as an upper bound of 30 characters that can be received
+		         through the UART.
 
 	System is currently limited as the input parser is naive and currently only works for PINS 18,20 and 23.
+
+	Update 12/26/2016 - Currently working on getting interrupts working correctly and setting up the I2C HAL, want to add
+	         in a barometric/temperature sensor from ada fruit. Also need to build a structure to hold all current register
+	         values so they can be saved/restored.
+
 
   
 **Requirements:**
@@ -44,7 +52,20 @@
   I have been using codeblocks as an IDE which seems to work really well with the build system
 
 **Notes:**
-  >www.valvers.com has great tutorials on how ot set up the build system 
+  >www.valvers.com has great tutorials on how ot set up the build system
+
+  >Interrupts - The interrupts on this system are currently not working as expected.
+    1.) In dissasembly of the code shows the vector table looks like it is mapping correctly
+    2.) The addresses to the interrupt functions looks to be mapped correctly as well.
+    3.) The interrupt controller is working correctly with the arm timer. I can see the arm timer does count
+        down and the RAWIRQ (IRQ pending) is set in the controller. In stead of the system taking the exception
+        vector it appears to just randomly reset.
+    4.) The culprit appears to be in the processor mode. Function get_cpsr  gets
+        the current cpsr register which is always 0x600001da,according to the arm architecture document
+        puts the processor mode in hyp mode. Which I have a hunch is causing the system to reset on exception.
+        This is not as expected, based on the armc-start.S, expecting the processor to be in svc mode.
+
+    5.) Ordered the ARM systems developer guide to research this issue.
 
 
 **Goals:**
