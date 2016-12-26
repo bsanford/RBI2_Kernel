@@ -49,7 +49,7 @@
   
 **Requirements:**
   >In order to build the system requires Cmake and the ARM-EABI-NONE GCC cross compiler
-  I have been using codeblocks as an IDE which seems to work really well with the build system
+  I have been using CLION as an IDE which seems to work really well with the build system
 
 **Notes:**
   >www.valvers.com has great tutorials on how ot set up the build system
