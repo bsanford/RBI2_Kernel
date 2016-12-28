@@ -55,6 +55,7 @@
   >www.valvers.com has great tutorials on how ot set up the build system
 
   >Interrupts - The interrupts on this system are currently not working as expected.
+
     1.) In dissasembly of the code shows the vector table looks like it is mapping correctly
 
     2.) The addresses to the interrupt functions looks to be mapped correctly as well.
