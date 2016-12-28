@@ -56,10 +56,13 @@
 
   >Interrupts - The interrupts on this system are currently not working as expected.
     1.) In dissasembly of the code shows the vector table looks like it is mapping correctly
+
     2.) The addresses to the interrupt functions looks to be mapped correctly as well.
+
     3.) The interrupt controller is working correctly with the arm timer. I can see the arm timer does count
         down and the RAWIRQ (IRQ pending) is set in the controller. In stead of the system taking the exception
         vector it appears to just randomly reset.
+
     4.) The culprit appears to be in the processor mode. Function get_cpsr  gets
         the current cpsr register which is always 0x600001da,according to the arm architecture document
         puts the processor mode in hyp mode. Which I have a hunch is causing the system to reset on exception.
