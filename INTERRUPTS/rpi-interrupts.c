@@ -43,6 +43,25 @@ int get_cpsr(void){
 
 
 
+/**Function get_spsr
+ * @brief fetches the ARM spsr (banked cpsr register)
+ *
+ * @return 32 bit value of the ARM spsr register
+ */
+int get_spsr(void){
+
+    unsigned int spsr_reg;
+    __asm__ __volatile__("mrs %0, spsr" : "=r" (spsr_reg));
+
+    return spsr_reg;
+}
+
+
+
+
+
+
+
 /**Function RPI_GetIrqController
     @brief Return the IRQ Controller register set
 
