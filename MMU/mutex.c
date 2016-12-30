@@ -6,7 +6,7 @@
  * set_mutex_lock - sets the lock
  * on the specified mutex structure
  */
-char set_mutex_lock(struct mutex *self){
+int set_mutex_lock(struct mutex *self){
 
   self->locked = 1;
   return self->locked;
@@ -20,7 +20,7 @@ char set_mutex_lock(struct mutex *self){
  * lock structure
  */
 
-char rmv_mutex_lock(struct mutex *self){
+int rmv_mutex_lock(struct mutex *self){
 
   self->locked = 0;
 
@@ -51,7 +51,7 @@ bool is_locked(struct mutex *self){
  *  and sets the initial lock value to 0
  */
 
-char init_lock(struct mutex *self){
+int init_lock(struct mutex *self){
 
   self->locked = 0;
   self->islocked = &is_locked;

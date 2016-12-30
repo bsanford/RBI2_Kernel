@@ -127,7 +127,7 @@ int clear_gpio_sig(struct gpio_pin *pin){
 
 /**Function: set fncslct_reg
  *This is used so the registers don't get clobbered when
- *ORing in different function selects.
+ *ORing in different function selects. Modified from the valvers tutorial
  */
 int set_fncslct_reg(struct gpio_pin *pin, int pin_func, int reg_local){
     int fsel_copy = *(pin->fnc_slt);

@@ -22,21 +22,6 @@ void sleep(uint32_t micros){
 
 }
 
-/** Function blinky_blinky
- * Just a test to prove the interrupts are working correctly
- */
-void enable_timer_interrupts(void){
-    printf("Setting up Arm-Timer Interrupts \r \n");
- RPI_GetIrqController()->Enable_Basic_IRQs = RPI_BASIC_ARM_TIMER_IRQ;
-    RPI_GetArmTimer()->Load = 0x400;
-    RPI_GetArmTimer()->Control =
-            RPI_ARMTIMER_CTRL_23BIT |
-            RPI_ARMTIMER_CTRL_ENABLE |
-            RPI_ARMTIMER_CTRL_INT_ENABLE |
-            RPI_ARMTIMER_CTRL_PRESCALE_256;
-
-    _enable_interrupts();
-}
 
 
 
@@ -144,7 +129,6 @@ count++;
  * on a bread board
  */
 void gpio_sys(void){
-
     struct gpio_api_funcs *user = init_gpio_api_funcs();
 
     user->init_gpio();
@@ -153,15 +137,37 @@ void gpio_sys(void){
 
     user->mini_uart_init(115200, 8);
 
+    int cpsr_reg;
+
  int len = 30;
  char buffer[len]; /*Character buffer for the buffered read */
-
        //Initialize the Uart for reading and writing;'
    printf("\r \n");
    printf("Welcome to the GPIO controller Interface \r \n");
 
+    /*
+     rpi_arm_timer_t *mytime  = RPI_GetArmTimer();
+     rpi_irq_controller_t *myirq = RPI_GetIrqController();
 
+
+    myirq->Enable_Basic_IRQs = RPI_BASIC_ARM_TIMER_IRQ;
+    mytime->Load = 0x400;
+    mytime->Control =
+            RPI_ARMTIMER_CTRL_23BIT |
+            RPI_ARMTIMER_CTRL_ENABLE |
+            RPI_ARMTIMER_CTRL_INT_ENABLE |
+            RPI_ARMTIMER_CTRL_PRESCALE_256;
+
+    cpsr_reg = get_cpsr();
+
+    printf("CPSR = 0x%08x ", cpsr_reg);
+
+    _enable_interrupts();
+*/
  while(1){
+
+     //printf("IRQ Flag = %lu \r \n", mytime->RAWIRQ);
+
         printf("Please Enter a Command-> \r \n");
         uart_buff_read(buffer, len, ';');
         printf("Command -> %s received \r \n", buffer);
@@ -214,7 +220,6 @@ void gpio_sys(void){
         }
 
          printf("Unkonwn command -> %s \r \n", buffer);
-
 
 
  }
