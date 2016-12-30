@@ -145,7 +145,10 @@ void gpio_sys(void){
    printf("\r \n");
    printf("Welcome to the GPIO controller Interface \r \n");
 
-    /*
+      cpsr_reg = get_cpsr();
+
+    printf("initial CPSR = 0x%08x ", cpsr_reg);
+
      rpi_arm_timer_t *mytime  = RPI_GetArmTimer();
      rpi_irq_controller_t *myirq = RPI_GetIrqController();
 
@@ -158,12 +161,13 @@ void gpio_sys(void){
             RPI_ARMTIMER_CTRL_INT_ENABLE |
             RPI_ARMTIMER_CTRL_PRESCALE_256;
 
-    cpsr_reg = get_cpsr();
 
-    printf("CPSR = 0x%08x ", cpsr_reg);
 
     _enable_interrupts();
-*/
+
+     cpsr_reg = get_cpsr();
+     printf("Secondary CPSR = 0x%08x ", cpsr_reg);
+
  while(1){
 
      //printf("IRQ Flag = %lu \r \n", mytime->RAWIRQ);
