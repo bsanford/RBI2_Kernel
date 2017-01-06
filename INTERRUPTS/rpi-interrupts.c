@@ -1,3 +1,4 @@
+#include<stdio.h>
 #include "rpi-armtimer.h"
 #include "rpi-interrupts.h"
 #include "user_cntrl.h"
@@ -43,6 +44,7 @@ int get_cpsr(void){
 
 
 
+
 /**Function get_spsr
  * @brief fetches the ARM spsr (banked cpsr register)
  *
@@ -75,13 +77,22 @@ rpi_irq_controller_t* RPI_GetIrqController( void )
 
 
 
+void c_irq_handler(void){
+
+    printf("In IRQ Handler \r \n");
+    rpi_arm_timer_t *mytime  = RPI_GetArmTimer();
+    mytime->IRQClear = 1;
+}
 
 
 
 void __attribute__((interrupt("IRQ")))interrupt_vector(void)
 {
+    printf("In IRQ Handler \r \n");
     rpi_arm_timer_t *mytime  = RPI_GetArmTimer();
     mytime->IRQClear = 1;
+
+    __asm__ __volatile__("SUBS pc, r14, #4");
 }
 
 /**
@@ -92,6 +103,9 @@ void __attribute__((interrupt("IRQ")))interrupt_vector(void)
     the ARM is handed control at the end of boot loading
 */
 void __attribute__((interrupt("ABORT"))) reset_vector(void) {
+
+    printf("In Abort vector \r \n");
+    while(1);
 }
 
 /**
@@ -101,6 +115,8 @@ void __attribute__((interrupt("ABORT"))) reset_vector(void) {
     executing this function. Just trap here as a debug solution.
 */
 void __attribute__((interrupt("UNDEF"))) undefined_instruction_vector(void) {
+    printf("In Undef instruction vector \r \n");
+    while(1);
 }
 
 
@@ -111,6 +127,8 @@ void __attribute__((interrupt("UNDEF"))) undefined_instruction_vector(void) {
     solution.
 */
 void __attribute__((interrupt("SWI"))) software_interrupt_vector(void) {
+    printf("In software interrupt vector");
+    while(1);
 }
 
 
@@ -122,6 +140,8 @@ void __attribute__((interrupt("SWI"))) software_interrupt_vector(void) {
 */
 void __attribute__((interrupt("ABORT"))) prefetch_abort_vector(void)
 {
+    printf("In prefetch abort vector \r \n");
+    while(1);
 
 }
 
@@ -134,6 +154,8 @@ void __attribute__((interrupt("ABORT"))) prefetch_abort_vector(void)
 */
 void __attribute__((interrupt("ABORT"))) data_abort_vector(void)
 {
+
+    printf("In data abort vector \r \n");
 
 }
 
@@ -176,6 +198,6 @@ void __attribute__((interrupt("ABORT"))) data_abort_vector(void)
 */
 void __attribute__((interrupt("FIQ")))fast_interrupt_vector(void)
 {
-    rpi_arm_timer_t *mytime  = RPI_GetArmTimer();
-    mytime->IRQClear = 1;
+    printf("In FIQ vector \r \n");
+    while (1);
 }

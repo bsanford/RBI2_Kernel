@@ -147,7 +147,7 @@ void gpio_sys(void){
 
       cpsr_reg = get_cpsr();
 
-    printf("initial CPSR = 0x%08x ", cpsr_reg);
+    printf("initial CPSR =%d  \r \n", cpsr_reg);
 
      rpi_arm_timer_t *mytime  = RPI_GetArmTimer();
      rpi_irq_controller_t *myirq = RPI_GetIrqController();
@@ -166,7 +166,7 @@ void gpio_sys(void){
     _enable_interrupts();
 
      cpsr_reg = get_cpsr();
-     printf("Secondary CPSR = 0x%08x ", cpsr_reg);
+     printf("Secondary CPSR = %d \r \n", cpsr_reg);
 
  while(1){
 

@@ -59,40 +59,33 @@
 .equ	SCTLR_ENABLE_INSTRUCTION_CACHE, 0x1000
 
 _start:
-    ldr pc, _reset_h
-    ldr pc, _undefined_instruction_vector_h
-    ldr pc, _software_interrupt_vector_h
-    ldr pc, _prefetch_abort_vector_h
-    ldr pc, _data_abort_vector_h
-    ldr pc, _unused_handler_h
-    ldr pc, _interrupt_vector_h
-    ldr pc, _fast_interrupt_vector_h
+   b    _reset_
+   ldr  pc, _undefined_instruction_vector
+   ldr  pc, _software_interrupt_vector
+   ldr  pc, _prefetch_abort_vector
+   ldr  pc, _data_abort_vector
+   ldr  pc, _data_abort_vector
+   ldr  pc, _interrupt_vector
+   ldr  pc, _fast_interrupt_vector
 
-_reset_h:                           .word   _reset_
-_undefined_instruction_vector_h:    .word   undefined_instruction_vector
-_software_interrupt_vector_h:       .word   software_interrupt_vector
-_prefetch_abort_vector_h:           .word   prefetch_abort_vector
-_data_abort_vector_h:               .word   data_abort_vector
-_unused_handler_h:                  .word   _reset_
-_interrupt_vector_h:                .word   interrupt_vector
-_fast_interrupt_vector_h:           .word   fast_interrupt_vector
+   _undefined_instruction_vector:    .word   undefined_instruction_vector
+   _software_interrupt_vector:       .word   software_interrupt_vector
+   _prefetch_abort_vector:           .word   prefetch_abort_vector
+   _data_abort_vector:               .word   data_abort_vector
+   _interrupt_vector:                .word   _irq_handler
+   _fast_interrupt_vector:           .word   fast_interrupt_vector
 
 _reset_:
     // We enter execution in supervisor mode. For more information on
     // processor modes see ARM Section A2.2 (Processor Modes)
 
-    mov     r0, #0x8000
     mov     r1, #0x0000
-    ldmia   r0!,{r2, r3, r4, r5, r6, r7, r8, r9}
-    stmia   r1!,{r2, r3, r4, r5, r6, r7, r8, r9}
-    ldmia   r0!,{r2, r3, r4, r5, r6, r7, r8, r9}
-    stmia   r1!,{r2, r3, r4, r5, r6, r7, r8, r9}
 
     // Initialise Stack Pointers ---------------------------------------------
 
     // We're going to use interrupt mode, so setup the interrupt mode
     // stack pointer which differs to the application stack pointer:
-    mov r0, #(CPSR_MODE_IRQ | CPSR_IRQ_INHIBIT | CPSR_FIQ_INHIBIT )
+    mov r0, #0xD2
     msr cpsr_c, r0
     mov sp, #0x7000
 
@@ -100,7 +93,7 @@ _reset_:
     // set the stack pointer. Remember that the stack works its way
     // down memory, our heap will work it's way up from after the
     // application.
-    mov r0, #(CPSR_MODE_SVR | CPSR_IRQ_INHIBIT | CPSR_FIQ_INHIBIT )
+    mov r0, #0xD3
     msr cpsr_c, r0
     mov sp, #0x8000
 
@@ -157,9 +150,27 @@ _get_stack_pointer:
 
 
 _enable_interrupts:
+    push    {r0, lr}
     mrs     r0, cpsr
-    bic     r0, r0, #0x80
+    BIC     r0, r0, #0x80
     msr     cpsr_c, r0
+    pop     {r0, pc}
 
-    mov     pc, lr
+
+
+
+_disable_irq:
+    MRS     r0, cpsr
+    ORR     r0, r0, #0x80
+    MSR     cpsr_c, r1
+
+    MOV      pc, lr
+
+
+_irq_handler:
+   sub      r14,r14, #4
+   push     {r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r14}
+   bl       c_irq_handler
+   pop      {r0,r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12,pc}
+
 

@@ -38,7 +38,8 @@ project( armc-Kernel C ASM )
 
 # Add any C compiler flags here. The C flags concerned with processor tuning
 # are in the toolchain files toolchain-arm-none-eabi-bcm2835.cmake, etc.
-set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O1" )
+set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O4" )
+set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall" )
 set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -nostartfiles" )
 
 # Set the linker flags so that we use our "custom" linker script
