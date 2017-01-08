@@ -147,7 +147,7 @@ void gpio_sys(void){
 
       cpsr_reg = get_cpsr();
 
-    printf("initial CPSR =%d  \r \n", cpsr_reg);
+    printf("initial CPSR = %d  \r \n", cpsr_reg);
 
      rpi_arm_timer_t *mytime  = RPI_GetArmTimer();
      rpi_irq_controller_t *myirq = RPI_GetIrqController();
@@ -155,14 +155,7 @@ void gpio_sys(void){
 
     myirq->Enable_Basic_IRQs = RPI_BASIC_ARM_TIMER_IRQ;
     mytime->Load = 0x400;
-    mytime->Control =
-            RPI_ARMTIMER_CTRL_23BIT |
-            RPI_ARMTIMER_CTRL_ENABLE |
-            RPI_ARMTIMER_CTRL_INT_ENABLE |
-            RPI_ARMTIMER_CTRL_PRESCALE_256;
-
-
-
+    mytime->Control = (RPI_ARMTIMER_CTRL_23BIT | RPI_ARMTIMER_CTRL_ENABLE | RPI_ARMTIMER_CTRL_INT_ENABLE | RPI_ARMTIMER_CTRL_PRESCALE_256);
     _enable_interrupts();
 
      cpsr_reg = get_cpsr();

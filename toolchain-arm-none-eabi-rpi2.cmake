@@ -65,4 +65,4 @@ set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS}" CACHE STRING "" )
 set( CMAKE_ASM_FLAGS "${CMAKE_C_FLAGS}" CACHE STRING "" )
 
 # Add the raspberry-pi 2 definition so conditional compilation works
-add_definitions( -DRPI2=1 )
+#add_definitions( -DRPI2=1 )
