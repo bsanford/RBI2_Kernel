@@ -59,7 +59,7 @@ void set_clock_speed(void){
  * @return returns the short dlen value
  */
 
-short get_dlen(void) {
+int get_dlen(void) {
 
   return 0;
 }
