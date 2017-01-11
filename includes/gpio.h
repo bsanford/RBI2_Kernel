@@ -104,7 +104,9 @@
     volatile unsigned int *gpio_clr_reg;  /*Register location to clear the outputs*/
     volatile unsigned int *gpio_lvl_reg; /*Register_to_detect the pin lvl;*/
     volatile unsigned int *gpio_up_dn_clk; /* Register for gpio clock signal */
-    volatile unsigned int*gpio_pupdown; /*Register to control the GPIO pull up down*/
+    volatile unsigned int *gpio_pupdown; /*Register to control the GPIO pull up down*/
+    volatile unsigned int *gpio_low_dtct;  /*Low Level Detect Register - sets evnt detect*/
+    volatile unsigned int *evnt_dtct;        /*Event Register, used for irq */
     struct mutex hw_lock;           /*mutex lock*/
 };
 
