@@ -114,15 +114,16 @@ _enable_interrupts:
     mrs     r0, cpsr
     bic     r0, r0, #0x80
     msr     cpsr_c, r0
-    bx      lr
+
+    mov     pc, lr
 
 
 _disable_irq:
-    MRS     r0, cpsr
-    ORR     r0, r0, #0x80
-    MSR     cpsr_c, r1
+    mrs    r0, cpsr
+    orr     r0, r0, #0x80
+    msr     cpsr_c, r1
 
-    MOV      pc, lr
+    mov      pc, lr
 
 
 _irq_handler:

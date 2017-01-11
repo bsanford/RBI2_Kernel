@@ -154,7 +154,7 @@ void gpio_sys(void){
 
 
     myirq->Enable_Basic_IRQs = RPI_BASIC_ARM_TIMER_IRQ;
-    mytime->Load = 0x400;
+    mytime->Load = 0x4000;
     mytime->Control = (RPI_ARMTIMER_CTRL_23BIT | RPI_ARMTIMER_CTRL_ENABLE | RPI_ARMTIMER_CTRL_INT_ENABLE | RPI_ARMTIMER_CTRL_PRESCALE_256);
     _enable_interrupts();
 

@@ -1,6 +1,6 @@
 #  Design Patterns on an Embedded System
 
-  >A baremetal system implementation targeting Software design patterns for the Raspberry PI 2 hardware.
+  >A baremetal system implementation targeting Software design patterns for the Raspberry PI 2 v1.1 hardware.
 
 **Design Patterns**
    >Facade: 
@@ -42,12 +42,7 @@
 
 	System is currently limited as the input parser is naive and currently only works for PINS 18,20 and 23.
 
-	Update 12/26/2016 - Currently working on getting interrupts working correctly and setting up the I2C HAL, want to add
-	         in a barometric/temperature sensor from ada fruit. Also need to build a structure to hold all current register
-	         values so they can be saved/restored.
 
-
-  
 **Requirements:**
   >In order to build the system requires Cmake and the ARM-EABI-NONE GCC cross compiler
   I have been using CLION as an IDE which seems to work really well with the build system
@@ -55,22 +50,14 @@
 **Notes:**
   >www.valvers.com has great tutorials on how ot set up the build system
 
-  >Interrupts - The interrupts on this system are currently not working as expected.
+  >Interrupts - Interrupts are now working, the Rapberry PI v1.1 runs in hyp mode
+                so the stack set up is slightly different
 
-    1.) In dissasembly of the code shows the vector table looks like it is mapping correctly
+                1.)Since it is in Hyp mode just use the one stack
+                2.)It is required to use ERET directive when exiting from the interrupt handler
+                3.)In order to compile ERET directive SEC and Vert extensions are required in arm-start.S
 
-    2.) The addresses to the interrupt functions looks to be mapped correctly as well.
 
-    3.) The interrupt controller is working correctly with the arm timer. I can see the arm timer does count
-        down and the RAWIRQ (IRQ pending) is set in the controller. In stead of the system taking the exception
-        vector it appears to just randomly reset.
-
-    4.) The culprit appears to be in the processor mode. Function get_cpsr  gets
-        the current cpsr register which is always 0x600001da,according to the arm architecture document
-        puts the processor mode in hyp mode. Which I have a hunch is causing the system to reset on exception.
-        This is not as expected, based on the armc-start.S, expecting the processor to be in svc mode.
-
-    5.) Ordered the ARM systems developer guide to research this issue.
 
 
 **Goals:**

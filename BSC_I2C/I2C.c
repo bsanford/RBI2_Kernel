@@ -65,6 +65,8 @@ int get_dlen(void) {
 }
 
 
+
+
 /**Function set_dlen
  * @brief writes the dlen value to the register ie
  *        how much data will be written on to the i2C line
