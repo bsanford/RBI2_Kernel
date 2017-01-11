@@ -15,6 +15,8 @@ int clear_gpio_sig(struct gpio_pin *pin);
 int set_fncslct_reg(struct gpio_pin *pin, int pin_func, int reg_local);
 int set_gpio_fnct(struct gpio_pin *pin, int pin_fnc);
 void init_uart_pins(struct gpio_pin *txd_pin, struct gpio_pin *rxd_pin);
+int clr_evnt(struct gpio_pin *pin);
+
 
 
 
@@ -58,6 +60,37 @@ void set_gpio_pin_on(struct gpio_pin *pin){
     send_gpio_sig(pin);
 
 }
+
+
+
+
+
+
+/**Function low_lvl_dtct
+ * @brief Enables the Low level detect functionality on a given Pin
+ *        This is used in combination with the Event detect registers
+ *        to set an IRQ on the controller
+ *
+ * @param pin - the pointer to the GPIO pin to set
+ *
+ *
+ * @return returns 0 on success -1 on error
+ */
+
+
+int low_lvl_dtct(struct gpio_pin *pin){
+
+    volatile unsigned int tmp_reg_val = 0;
+
+    if(pin == NULL)
+        return(-1);
+
+     tmp_reg_val |= 1 << (pin->p_nmb);
+    *(pin->gpio_low_dtct) = tmp_reg_val;
+    return (0);
+}
+
+
 
 
 
@@ -125,6 +158,31 @@ int clear_gpio_sig(struct gpio_pin *pin){
 }
 
 
+
+/**
+ * @name clr_evnt
+ * @brief function clears the event status detect bit of the supplied gpio pin structre
+ * @param pin
+ * @return returns 0 on success -1 if the pin set is NULL
+ */
+int clr_evnt(struct gpio_pin *pin){
+
+    if(pin == NULL)
+        return (-1);
+
+     *(pin->evnt_dtct) |= 1 << (pin->p_nmb);
+
+     return (0);
+
+}
+
+
+
+
+
+
+
+
 /**Function: set fncslct_reg
  *This is used so the registers don't get clobbered when
  *ORing in different function selects. Modified from the valvers tutorial
@@ -135,6 +193,11 @@ int set_fncslct_reg(struct gpio_pin *pin, int pin_func, int reg_local){
     fsel_copy |= (pin_func << reg_local);
     return fsel_copy;
 }
+
+
+
+
+
 
 /**Function: set_gpio_fnct
  *Given a gpio_pin and its associated GPIO function
@@ -247,6 +310,9 @@ gpio.set_gpio_pin_on = &set_gpio_pin_on;
 gpio.init_gpio = &prxy_init;
 gpio.mini_uart_init = &mini_uart_init;
 gpio.uart_buff_read = &uart_buff_read;
+gpio.low_lvl_dtct = &low_lvl_dtct;
+gpio.clr_evnt = &clr_evnt;
+
 init_gpitor(&(gpio.itor), pin_set, PIN_SET_SIZE);
 return &gpio;
 }
