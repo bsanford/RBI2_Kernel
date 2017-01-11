@@ -52,6 +52,11 @@
 #define RPI_BASIC_ACCESS_ERROR_1_IRQ    (1 << 6)
 #define RPI_BASIC_ACCESS_ERROR_0_IRQ    (1 << 7)
 
+/* This is defined in the IRQ TABLE of the broadcom 2835 manual*/
+#define IRQ_GPIO_ENABLE_B0              (1 << 17)
+#define IRQ_GPIO_ENABLE_B1              (1 << 18)
+#define IRQ_GPIO_ENABLE_B2              (1 << 19)
+
 
 /** @brief The interrupt controller memory mapped register set */
 typedef struct {

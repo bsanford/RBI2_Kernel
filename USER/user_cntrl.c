@@ -130,14 +130,31 @@ count++;
  */
 void gpio_sys(void){
     struct gpio_api_funcs *user = init_gpio_api_funcs();
-
+    struct gpio_pin *pin21;
     user->init_gpio();
 
-    user->init_uart_pins(user->itor.get_node_at_index(&(user->itor), 14), user->itor.get_node_at_index(&(user->itor), 15)); // Need to init the uart before the pins
+    user->init_uart_pins(user->itor.get_node_at_index(&(user->itor), 14),
+                         user->itor.get_node_at_index(&(user->itor), 15)); // Need to init the uart before the pins
 
     user->mini_uart_init(115200, 8);
 
-    int cpsr_reg;
+    printf("Initializing interrupt controller \r \n");
+
+    user->set_gpio_pin_on(user->itor.get_node_at_index(&(user->itor), 21)); /*Initalize reset line*/
+    printf("Setting Pin 21 as reset line \r \n");
+    printf("Setting GPIO pin 21 to high \r \n");
+    user->low_lvl_dtct(user->itor.get_node_at_index(&(user->itor),21));
+
+    pin21 = user->itor.get_node_at_index(&(user->itor), 21);
+
+    printf("Low detect set @ %d", *(pin21->gpio_low_dtct));
+
+    printf("Enabling pin 21 as low level detect \r \n");
+
+    rpi_irq_controller_t *myirq = RPI_GetIrqController();
+    printf("Enabled IRQ on pin bank 0 \r \n");
+    myirq->Enable_IRQs_2 =IRQ_GPIO_ENABLE_B0;
+
 
  int len = 30;
  char buffer[len]; /*Character buffer for the buffered read */
@@ -145,21 +162,8 @@ void gpio_sys(void){
    printf("\r \n");
    printf("Welcome to the GPIO controller Interface \r \n");
 
-      cpsr_reg = get_cpsr();
-
-    printf("initial CPSR = %d  \r \n", cpsr_reg);
-
-     rpi_arm_timer_t *mytime  = RPI_GetArmTimer();
-     rpi_irq_controller_t *myirq = RPI_GetIrqController();
-
-
-    myirq->Enable_Basic_IRQs = RPI_BASIC_ARM_TIMER_IRQ;
-    mytime->Load = 0x4000;
-    mytime->Control = (RPI_ARMTIMER_CTRL_23BIT | RPI_ARMTIMER_CTRL_ENABLE | RPI_ARMTIMER_CTRL_INT_ENABLE | RPI_ARMTIMER_CTRL_PRESCALE_256);
     _enable_interrupts();
 
-     cpsr_reg = get_cpsr();
-     printf("Secondary CPSR = %d \r \n", cpsr_reg);
 
  while(1){
 
@@ -168,6 +172,8 @@ void gpio_sys(void){
         printf("Please Enter a Command-> \r \n");
         uart_buff_read(buffer, len, ';');
         printf("Command -> %s received \r \n", buffer);
+
+
 
         if(str_match(buffer, len, PIN18_ON, 10)){
            printf("Setting GPIO Pin 18 to on \r \n");

@@ -86,6 +86,7 @@ int low_lvl_dtct(struct gpio_pin *pin){
         return(-1);
 
      tmp_reg_val |= 1 << (pin->p_nmb);
+
     *(pin->gpio_low_dtct) = tmp_reg_val;
     return (0);
 }
