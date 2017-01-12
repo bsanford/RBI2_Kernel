@@ -1,39 +1,7 @@
-/*
-
-    Part of the Raspberry-Pi Bare Metal Tutorials
-    Copyright (c) 2013, Brian Sidebotham
-    All rights reserved.
-
-    Redistribution and use in source and binary forms, with or without
-    modification, are permitted provided that the following conditions are met:
-
-    1. Redistributions of source code must retain the above copyright notice,
-        this list of conditions and the following disclaimer.
-
-    2. Redistributions in binary form must reproduce the above copyright notice,
-        this list of conditions and the following disclaimer in the
-        documentation and/or other materials provided with the distribution.
-
-    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-    ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-    LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-    CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-    INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-    CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-    POSSIBILITY OF SUCH DAMAGE.
-
-*/
-
 #ifndef RPI_INTERRUPTS_H
 #define RPI_INTERRUPTS_H
 
 #include <stdint.h>
-
-//#include "rpi-base.h"
 
 /** @brief See Section 7.5 of the BCM2836 ARM Peripherals documentation, the base
     address of the controller is actually xxxxB000, but there is a 0x200 offset
@@ -52,10 +20,24 @@
 #define RPI_BASIC_ACCESS_ERROR_1_IRQ    (1 << 6)
 #define RPI_BASIC_ACCESS_ERROR_0_IRQ    (1 << 7)
 
-/* This is defined in the IRQ TABLE of the broadcom 2835 manual*/
+
+
+/*IRQ Registers Bank 1 */
+#define AUX_INT                         (1 << 29)
+
+/*Register Bank 2 */
+#define I2C_SPI_SLV_INT                 (1 << 11)
+#define PWA0                            (1 << 13)
+#define PWA1                            (1 << 14)
+#define SMI                             (1 << 16)
 #define IRQ_GPIO_ENABLE_B0              (1 << 17)
 #define IRQ_GPIO_ENABLE_B1              (1 << 18)
 #define IRQ_GPIO_ENABLE_B2              (1 << 19)
+#define I2C_IRQ                         (1 << 20)
+#define SPI_IRQ                         (1 << 21)
+#define PCM_IRQ                         (1 << 22)
+#define UART_IRQ                        (1 << 24)
+
 
 
 /** @brief The interrupt controller memory mapped register set */
