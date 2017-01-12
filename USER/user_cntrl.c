@@ -3,8 +3,6 @@
 #include "user_cntrl.h"
 #include "gpio_api.h"
 #include "sys_time.h"
-#include "rpi-interrupts.h"
-#include "rpi-armtimer.h"
 
 #define PIN18_ON "GPIO_18_ON"
 #define PIN18_OFF "GPIO_18_OFF"
@@ -21,7 +19,6 @@ void sleep(uint32_t micros){
   while((get_sys_clock()->lo_32bits - curr) < micros);
 
 }
-
 
 
 
@@ -115,59 +112,22 @@ count++;
 
 
 
-/** gpio_sys calls that will execute
- *  different system calls for each
- *  command recieved by the uart
+
+/**gpio_sys
+ * @brief loop the system to execrcise the different
+ *        peripherals on the system.
  *
- * Pre-conditions Uart must be initialized to send data or this will not work
- * correctly.
  *
- * This function is basically some a test code that allows the system to interact with
- * the GPIO facade.
- *
- * Naive parser just to test different GPIO pins accepting commands from a UART and lighting LEDs
- * on a bread board
  */
 void gpio_sys(void){
     struct gpio_api_funcs *user = init_gpio_api_funcs();
-    struct gpio_pin *pin21;
-    user->init_gpio();
-
-    user->init_uart_pins(user->itor.get_node_at_index(&(user->itor), 14),
-                         user->itor.get_node_at_index(&(user->itor), 15)); // Need to init the uart before the pins
-
-    user->mini_uart_init(115200, 8);
-
-    printf("Initializing interrupt controller \r \n");
-
-    user->set_gpio_pin_on(user->itor.get_node_at_index(&(user->itor), 21)); /*Initalize reset line*/
-    printf("Setting Pin 21 as reset line \r \n");
-    printf("Setting GPIO pin 21 to high \r \n");
-    user->low_lvl_dtct(user->itor.get_node_at_index(&(user->itor),21));
-
-    pin21 = user->itor.get_node_at_index(&(user->itor), 21);
-
-    printf("Low detect set @ %d", *(pin21->gpio_low_dtct));
-
-    printf("Enabling pin 21 as low level detect \r \n");
-
-    rpi_irq_controller_t *myirq = RPI_GetIrqController();
-    printf("Enabled IRQ on pin bank 0 \r \n");
-    myirq->Enable_IRQs_2 =IRQ_GPIO_ENABLE_B0;
-
-
  int len = 30;
  char buffer[len]; /*Character buffer for the buffered read */
        //Initialize the Uart for reading and writing;'
    printf("\r \n");
    printf("Welcome to the GPIO controller Interface \r \n");
-
-    _enable_interrupts();
-
-
  while(1){
 
-     //printf("IRQ Flag = %lu \r \n", mytime->RAWIRQ);
 
         printf("Please Enter a Command-> \r \n");
         uart_buff_read(buffer, len, ';');
