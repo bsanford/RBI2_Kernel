@@ -32,15 +32,31 @@
 
     Kernel will initialize the the GPIO peripheral, intialize the UART pins (14 and 15) for reiceve and transmit with no CTS, RTS.
 	The system will except commands from a serial connection attached through the mini_uart.
+
+	GPIO pins 18 20 and 23 can be toggled between high and low by sending serial commands through the UART the command
+	 delimeter is the ';' character.
+
+                 The system currently supports the following commands
+                 GPIO18_ON;
+                 GPIO18_OFF;
+                 GPIO20_ON;
+                 GPIO20_OFF;
+                 GPIO23_ON;
+                 GPIO23_OFF;
+
 	
-	For example  GPIO_PIN18_ON; sent through the UART will initialize GPIO PIN 18 so that it can be set to a HIGH/LO signal
+	For example  GPIO18_ON; sent through the UART will initialize GPIO PIN 18 so that it can be set to a HIGH/LO signal
 			     the call will then set that PIN to a HIGH value on the rail
-		         GPIO_PIN18_OFF; will clear the signal and set the signal on the rail to LO;
+		         GPIO18_OFF; will clear the signal and set the signal on the rail to LO;
 
 		         The parser recognizes ; as the delimiter or it as an upper bound of 30 characters that can be received
 		         through the UART.
 
 	System is currently limited as the input parser is naive and currently only works for PINS 18,20 and 23.
+
+	GPIO PIN 21 is set up as a physical IRQ line for a soft reset. This uses a low level detect event which
+	            sends a signal to the IRQ controller. On initialization the pin is set to high and can be
+	            pulled down by jumping to ground or adding a switch ect.
 
 
 **Requirements:**
@@ -48,17 +64,12 @@
   I have been using CLION as an IDE which seems to work really well with the build system
 
 **Notes:**
-  >www.valvers.com has great tutorials on how ot set up the build system
+  >www.valvers.com has great tutorials on the compiler and build system and using the broadcom datasheets.
 
-  >Interrupts - Interrupts are now working, the Rapberry PI v1.1 runs in hyp mode
-                so the stack set up is slightly different
-
-                1.)Since it is in Hyp mode just use the one stack
-                2.)It is required to use ERET directive when exiting from the interrupt handler
-                3.)In order to compile ERET directive SEC and Vert extensions are required in arm-start.S
 
 
 
 
 **Goals:**
-  >Build a single user multiprocess kernel or a really awesome christmas tree controller.
+  >Working on rolling a weather station, I would like to launch it in a weather balloon and have
+   one of the higher power xbee modules communicate sensor data to a ground station.
