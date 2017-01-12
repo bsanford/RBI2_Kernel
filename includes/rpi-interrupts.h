@@ -60,6 +60,7 @@ extern volatile int calculate_frame_count;
 extern int get_cpsr(void);
 extern int get_spsr(void);
 extern void _enable_interrupts( void );
+extern void _soft_reset(void);
 extern rpi_irq_controller_t* RPI_GetIrqController( void );
 extern void c_irq_handler(void);
 

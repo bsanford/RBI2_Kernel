@@ -3,23 +3,6 @@
 #include "rpi-interrupts.h"
 #include "user_cntrl.h"
 
-
-
-
-
-/**There is something still not working correctly with the interrupt handler
- * The processor does not seem to be in the correct mode when the exception should be
- * vectored to the exception handler. Vector table is correct and Interrupt handlers are
- * mapped correctly. The interrupt controller on the peripheral is working as excpected as well.
- * ---Using the function below I am able to see that CPSR value is 0x600001DA which puts the mode
- *    bits in HYP mode. This is not as expected, my understanding is the processor would be in
- *    SVC mode.
- *    TODO - Research and understand what is happening with ARM processor modes and understand how and
- *           when they change.
- */
-
-
-
 /** @brief The BCM2835/6 Interupt controller peripheral at it's base address */
 static rpi_irq_controller_t* rpiIRQController =
         (rpi_irq_controller_t*)RPI_INTERRUPT_CONTROLLER_BASE;
@@ -77,23 +60,28 @@ rpi_irq_controller_t* RPI_GetIrqController( void )
 
 
 
-void c_irq_handler(void){
+void irq_handler(void){
+    rpi_irq_controller_t *irqctl = RPI_GetIrqController();
+    struct gpio_api_funcs *gpio;
+    /**
+     * @brief GPIO event has happened on bank1 in this case there is only one
+     *        this is the low level detect on line 21. Which is the reset button
+     *        for the system.
+     */
+    if(irqctl->IRQ_pending_2 & IRQ_GPIO_ENABLE_B0){
+        printf("Reset detected, jumping to reset vector \r \n");
+        gpio = init_gpio_api_funcs();
+        gpio->clr_evnt(gpio->itor.get_node_at_index(&(gpio->itor),21));
+        _soft_reset();
+    }
 
-    printf("In IRQ Handler \r \n");
-    rpi_arm_timer_t *mytime  = RPI_GetArmTimer();
-    mytime->IRQClear = 1;
+
+
+
+    printf("Undefined IRQ exception \r \n");
 }
 
 
-
-void __attribute__((interrupt("IRQ")))interrupt_vector(void)
-{
-    printf("In IRQ Handler \r \n");
-    rpi_arm_timer_t *mytime  = RPI_GetArmTimer();
-    mytime->IRQClear = 1;
-
-    __asm__ __volatile__("SUBS pc, r14, #4");
-}
 
 /**
     @brief The Reset vector interrupt handler
@@ -159,15 +147,6 @@ void __attribute__((interrupt("ABORT"))) data_abort_vector(void)
 
 }
 
-
-/**
-    @brief The IRQ Interrupt handler
-
-    This handler is run every time an interrupt source is triggered. It's
-    up to the handler to determine the source of the interrupt and most
-    importantly clear the interrupt flag so that the interrupt won't
-    immediately put us back into the start of the handler again.
-*/
 
 
 
