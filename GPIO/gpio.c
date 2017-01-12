@@ -5,14 +5,13 @@
 static int init_fnc_slct(struct gpio_pin *pin);
 static int init_clr_out_dtct_reg(struct gpio_pin *pin);
 
-/*Function init_gpio
- *Braeden Sanford 10-11-2016
- *
- *Args: *pin_arr pointer to the start of the gpio_pin set
- *       size - size of the the array (52 elements)
- *
- *       Loops over the array set and does any initialization for static
- *       register location offsets.
+/**
+ * Function init_gpio
+ * @brief takes a pointer to the start of a pin array iterates of the
+ *        gpio pin structure array and initializes all of its registers
+ * @param pin_arr
+ * @param size
+ * @return
  */
 
 int init_gpio(struct gpio_pin *pin_arr, unsigned int size){
@@ -39,21 +38,16 @@ return 0;
 }
 
 
-/*Function set_fnc_slct
- *Braeden Sanford 10-15-2016
- *
- *Args struct gpio_pin *pin this is the pin sructure
- *that is held in the gpio pin_set array
- *
- *The BCM2835 Arm Peripheral has the offsets of the function select registers
- *broken up into 5 different registers
- * pins 0 - 9 at GPIO_GPFSEL1
- *      10 -19 at GPIO_GPFSEL2
- *      .
- *       .
- *       53 at GPIO_GPFSEL 5
- */
 
+/**Function init_func_slct
+ *
+ * @brief takes a pin number and initializes the pin to the correct function select
+ *         register
+ *
+ * @param pin
+ * @return returns 0 on success and returns -1 on failure would only fail if
+ *          this got a value greater than 53.
+ */
 
 static int init_fnc_slct(struct gpio_pin *pin){
 
@@ -94,13 +88,10 @@ static int init_fnc_slct(struct gpio_pin *pin){
 }
 
 
-/*Function set_clr_out_dtct_reg
- * Args - Struct gpio_pin
- * Recieves a GPIO pin as an argument and based on its pin number
- * sets up the register location for gpio Pin output, Pin clear and Pin
- * Level select registers
- *
- * Todo: Add in support for the other types of registers
+/**Function init_clr_out_dtct_reg
+ * @brief maps the gpio banked registers to the GPIO pin structures
+ * @param pin
+ * @return returns 0 on success -1 if there is a failure
  */
 static int init_clr_out_dtct_reg(struct gpio_pin *pin)
 {
