@@ -3,10 +3,6 @@
 *
 * Location offsets for the Broadcom BCM2836
 * ARM peripheral.
-*
-*This is an initial test
-* to get the infrastructure set up and ensure
-* the Kernel is still working on each interation.
 */
 
 

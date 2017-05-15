@@ -27,16 +27,30 @@ struct bsc_i2c_t{
 
 
 /* Control register attributes locations*/
-#define C_I2CEN   (15)
-#define C_INT_RX  (10)
-#define C_INT_TX  (9)
-#define C_INTD_DN (8)
-#define C_ST_TFR  (7)
+#define C_I2CEN   (15) /*Enable BSC Controller*/
+#define C_INT_RX  (10) /*0 No Interrupt on RX condition*/
+#define C_INT_TX  (9) /*0 No TXW condition, 1 enables*/
+#define C_INT_DN  (8) /*Enable/Disable Interrupt*/
+#define C_ST_TFR  (7) /*Starts a new BSC transfer*/
 /*bit 6 is reserved*/
-#define C_CLEAR   (4)
+#define C_CLEAR   (4) /*Clears the fifo*/
 /*bit 3:1 are reserved*/
-#define C_READ    (1)
+#define C_READ    (0) /*specifies type of transfer*/
 
 
+
+/*Status register attribute locations*/
+#define CLKT      (9) /*Clock Stretch Timeout*/
+#define ERR       (8) /*Ack Err 0 - No error detected, slave didn't ack address*/
+#define RXF       (7) /*0 RX-FIFO not full, 1 RX-FIFO is full*/
+#define TXE       (6) /*TXE - FIFO Empty 0 FIFO not empty 1 FIFO is empty*/
+#define RXD       (5) /*RXD - 0 FIFO is empty, 1 FIFO contains as least one byte*/
+#define TXD       (4) /*TXD - 0 FIFO is full, 1 FIFO Can accept more data*/
+#define RXR       (3) /*RXR - 0 FIFO is less than full (read is underway)*/
+#define TXW       (2) /*TXW - 0 FIFO is at least full and a write is underway, 1 FIFO
+                       *is less then full and a write is under way. Cleared by writing
+                       * suffcient data*/
+#define DONE      (1) /*Transfer Complete - 1, not complete - 0, cleared by writing 1*/
+#define TA        (0) /*Transfer Active  - 1, not active = 0*/
 
 #endif //ARMC_KERNEL_I2C_H
