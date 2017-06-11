@@ -6,7 +6,8 @@
 #define ARMC_KERNEL_I2C_H
 
 #define BSC0  0x3F205000UL          /*( 0x3F000000UL + 0x205000 ) The address to the BSC register set 1 */
-#define BSC2  0x3F805000UL          /* ( 0x3F000000UL + 0x805000 ) The address to the BSC register set 2 */
+#define BSC1  0x3F804000UL          /* ( 0x3F000000UL + 0x804000 ) The address to the BSC register set 2 */
+#define BSC2  0x3F805000UL
 
 
 /*Broadcom Serial Controller Structure, these
@@ -14,7 +15,7 @@
  * I2C on the Raspberry PI2
  */
 
-struct bsc_i2c_t{
+typedef struct {
     volatile int control; /* used to enable interrupts, clear the FIFO, define a R/W operation */
     volatile int  status;  /* status register is used to record activity status, errors and interrupt requests*/
     volatile int  dlen;    /*defines the number of bytes of data to transmit or receive I2C transfer */
@@ -23,7 +24,7 @@ struct bsc_i2c_t{
     volatile int  clk_div; /*Used to specify the clock speed */
     volatile int  dat_delay; /*Fine controll over sampling and launching of data*/
     volatile int  clkt; /*Clock stretch time out */
-};
+}bsc_i2c_t;
 
 
 /* Control register attributes locations*/
@@ -52,5 +53,43 @@ struct bsc_i2c_t{
                        * suffcient data*/
 #define DONE      (1) /*Transfer Complete - 1, not complete - 0, cleared by writing 1*/
 #define TA        (0) /*Transfer Active  - 1, not active = 0*/
+
+
+
+/*DLEN data length allocation*/
+/* 15:0 is the DATA length of the packet*/
+#define DLEN_SHFT (16) /*DLEN BIT SHIFT*/
+#define DLEN_MSK  (0xFFFF << DLEN_SHFT)
+
+
+
+/*A Register is the Slave Address and cycle type*/
+
+#define SLV_SHFT (6)
+#define SLV_MSK  (0x3F << SLV_SHFT)
+
+
+/*Clock Divider bits*/
+
+#define CDIV_SHFT (16)
+#define CDIV_MSK (0xFFFF << CDIV_SHFT)
+
+
+/*DEL Register */
+
+#define FEDL_SHFT (32) /*Falling Edge Delay*/
+#define REDL_SHFT (16) /*Rising Edge Delay*/
+
+
+#define FEDL_MSK (0xFFFF << FEDL_SHFT)
+#define REDL_MSK (0xFFFF << REDL_SHFT)
+
+/*Clock stretch timeout*/
+#define TOUT_SHFT (16)
+#define TOUT_MSK (0xFFFF << TOUT_SHFT)
+
+
+
+
 
 #endif //ARMC_KERNEL_I2C_H
